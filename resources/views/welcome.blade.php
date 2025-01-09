@@ -3,132 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RansomeWatch - File Malware Scanner</title>
+    <title>RansomeWatch - Modern File Scanner</title>
     <style>
+        /* Global Reset */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
+            font-family: 'Poppins', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to bottom right, #007BFF, #0056b3);
+            background: linear-gradient(135deg, #ff7eb3, #ff758c, #ff9470);
             color: #333;
         }
 
         .container {
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-            text-align: center;
+            background: linear-gradient(135deg, #ffffff, #f0f0f0);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             width: 90%;
             max-width: 400px;
+            text-align: center;
         }
 
-        .container h1 {
-            font-size: 1.8em;
-            margin-bottom: 15px;
-            color: #007BFF;
-        }
-
-        .container p {
-            font-size: 0.9em;
-            margin-bottom: 20px;
-            color: #555;
+        h1 {
+            font-size: 2rem;
+            color: #ff6f61;
+            margin-bottom: 1.5rem;
         }
 
         input[type="file"],
         input[type="email"] {
             width: 100%;
-            padding: 12px;
+            padding: 12px 15px;
             margin-bottom: 15px;
             border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1em;
-            background: #f9f9f9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: 0.3s ease;
         }
 
-        input:focus {
-            border-color: #007BFF;
-            outline: none;
+        input[type="file"]:hover,
+        input[type="email"]:hover {
+            border-color: #ff6f61;
         }
 
         button {
             width: 100%;
             padding: 12px;
-            background-color: #007BFF;
+            background: linear-gradient(135deg, #ff6f61, #ff9068);
             border: none;
             color: white;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 1.1em;
-            transition: background-color 0.3s ease;
+            font-size: 1rem;
+            transition: background 0.3s ease;
         }
 
         button:hover {
-            background-color: #0056b3;
+            background: linear-gradient(135deg, #ff9068, #ff6f61);
         }
 
         .result {
             margin-top: 20px;
             padding: 15px;
-            background: #e9ecef;
-            border-radius: 5px;
+            background: #f7f7f7;
+            border: 1px solid #ddd;
+            border-radius: 10px;
             text-align: left;
-            font-size: 0.95em;
-            color: #333;
-            word-wrap: break-word;
+            font-size: 0.9rem;
+            color: #555;
         }
 
         .result h2 {
+            font-size: 1.2rem;
             margin-bottom: 10px;
-            font-size: 1.2em;
             color: #333;
-        }
-
-        @media (max-width: 600px) {
-            body {
-                padding: 10px;
-            }
-
-            .container {
-                padding: 20px;
-            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>RansomeWatch</h1>
-        <p>Upload your file to check for malware and receive the results via email.</p>
+        <p style="color: #777; margin-bottom: 1rem;">
+            A modern and innovative tool to check your files for malware threats.(max file size: 10MB)
+        </p>
         <form id="malwareForm" action="{{ route('malware.detect') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="file" id="fileInput" name="file" required>
-            <input type="email" id="emailInput" name="receipt_email" placeholder="Enter your email" required>
+            <input type="email" id="emailInput" name="receipt_email" placeholder="Enter receipt email" required>
             <button type="submit">Scan File</button>
         </form>
-    </div>
-
-    <div class="result-container">
-        @if(isset($result))
-            <div class="result">
-                <h2>Malware Scan Result</h2>
-                <pre>{{ $result }}</pre>
-            </div>
-        @endif
-        @if(isset($error))
-            <div class="result">
-                <h2>Scan Error</h2>
-                <pre>{{ $error }}</pre>
-            </div>
-        @endif
+        <div class="result-container">
+            @if(isset($result))
+                <div class="result">
+                    <h2>Scan Result</h2>
+                    <pre>{{ $result }}</pre>
+                </div>
+            @endif
+            @if(isset($error))
+                <div class="result">
+                    <h2>Error</h2>
+                    <pre>{{ $error }}</pre>
+                </div>
+            @endif
+        </div>
     </div>
 </body>
 </html>
