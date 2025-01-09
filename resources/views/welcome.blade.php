@@ -28,11 +28,11 @@
             align-items: center;
             gap: 20px;
             background: linear-gradient(135deg, #ffffff, #f0f0f0);
-            padding: 25px;
+            padding: 35px; /* Increased padding for a more spacious layout */
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 400px;
+            width: 95%; /* Slightly increased width */
+            max-width: 500px; /* Increased max width for a larger container */
             text-align: center;
             position: relative;
         }
