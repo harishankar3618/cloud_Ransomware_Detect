@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ransomewatch</title>
-        <style>
+    <style>
         /* Global Reset */
         * {
             margin: 0;
@@ -30,6 +30,7 @@
             width: 90%;
             max-width: 400px;
             text-align: center;
+            position: relative;
         }
 
         h1 {
@@ -70,19 +71,32 @@
             background: linear-gradient(135deg, #ff9068, #ff6f61);
         }
 
-        .result {
+        .result-container {
             margin-top: 20px;
             padding: 15px;
-            background: #f7f7f7;
+            background: #f9f9f9;
             border-radius: 10px;
             text-align: left;
             font-size: 0.9em;
             color: #555;
+            display: none; /* Hidden by default */
         }
-        .result h2 {
+
+        .result-container.visible {
+            display: block; /* Shown when there are results */
+        }
+
+        .result-container h2 {
             font-size: 1.2rem;
             margin-bottom: 10px;
-            color: #333
+            color: #333;
+        }
+
+        .result-container pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 8px;
+            overflow-x: auto;
         }
     </style>
 </head>
@@ -98,21 +112,20 @@
             <input type="email" id="emailInput" name="receipt_email" placeholder="Enter receipt email" required>
             <button type="submit">Check File</button>
         </form>
-    </div>
 
-    <div class="result-container">
-        @if(isset($result))
-            <div class="result">
-                <pre>{{ $result }}</pre>
+        <!-- Result Section -->
+        @if(isset($result) || isset($error))
+            <div class="result-container visible">
+                @if(isset($result))
+                    <h2>Malware Scan Result</h2>
+                    <pre>{{ $result }}</pre>
+                @endif
+                @if(isset($error))
+                    <h2>Error</h2>
+                    <pre>{{ $error }}</pre>
+                @endif
             </div>
         @endif
-        @if(isset($result))
-            <div class="result">
-                <h2>Malware Scan Result</h2>
-                <pre>{{ $error }}</pre>
-            </div>
-        @endif
     </div>
-
 </body>
 </html>
