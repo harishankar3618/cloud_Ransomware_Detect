@@ -20,22 +20,25 @@
             height: 100vh;
             background: linear-gradient(135deg, #7f7fd5, #86a8e7, #91eae4);
             color: #333;
+            overflow: hidden;
         }
 
         .container {
             display: flex;
-            flex-direction: row;
-            gap: 20px;
+            flex-direction: column;
+            align-items: center;
             background: #fff;
             padding: 25px;
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             width: 90%;
-            max-width: 900px;
+            max-width: 600px;
+            position: relative;
+            overflow: hidden;
         }
 
         .form-section {
-            flex: 1;
+            width: 100%;
             text-align: center;
         }
 
@@ -83,11 +86,20 @@
         }
 
         .result-section {
-            flex: 1;
+            position: absolute;
+            bottom: -200px; /* Initially hidden below */
+            left: 0;
+            width: 100%;
             background: #f9f9f9;
             padding: 20px;
             border-radius: 15px;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: bottom 0.5s ease; /* Smooth animation */
+            text-align: center;
+        }
+
+        .result-section.visible {
+            bottom: 0; /* Bring it into view */
         }
 
         .result-section h2 {
@@ -104,38 +116,42 @@
             color: #555;
             white-space: pre-wrap;
             word-wrap: break-word;
+            overflow: auto; /* Prevent text overflow */
+            max-height: 150px; /* Limit result height */
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Form Section -->
         <div class="form-section">
-            <h1>Ransomewatch</h1>
+            <h1>RansomeWatch</h1>
             <p>A modern tool to scan your files for malware threats.</p>
             <form id="malwareForm" action="{{ route('malware.detect') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="file" id="fileInput" name="file" required>
                 <input type="email" id="emailInput" name="receipt_email" placeholder="Enter receipt email" required>
-                <button type="submit">Check File</button>
+                <button type="button" id="scanButton">Scan File</button>
             </form>
         </div>
-    </div>
 
-    <div class="result-container">
-        <div class="result-section"></div>
-            @if(isset($result))
-                <div class="result">
-                    <pre>{{ $result }}</pre>
-                </div>
-            @endif
-            @if(isset($result))
-                <div class="result">
-                    <h2>Malware Scan Result</h2>
-                    <pre>{{ $error }}</pre>
-                </div>
-            @endif
+        <!-- Result Section -->
+        <div class="result-section" id="resultSection">
+            <h2>Scan Result</h2>
+            <pre id="resultText">No result available yet.</pre>
         </div>
     </div>
 
+    <script>
+        // Simulating result visibility on button click
+        document.getElementById('scanButton').addEventListener('click', function () {
+            const resultSection = document.getElementById('resultSection');
+            const resultText = document.getElementById('resultText');
+
+            // Simulate scan process
+            resultText.textContent = "Scanning complete! No threats found."; // Example text
+            resultSection.classList.add('visible'); // Slide up the result box
+        });
+    </script>
 </body>
 </html>
