@@ -124,10 +124,6 @@
                     <h2>Malware Scan Result</h2>
                     <pre>{{ $result }}</pre>
                 @endif
-                @if(isset($error))
-                    <h2>Error</h2>
-                    <pre>{{ $error }}</pre>
-                @endif
             </div>
         @endif
 </body>
