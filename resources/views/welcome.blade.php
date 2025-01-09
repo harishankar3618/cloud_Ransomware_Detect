@@ -87,13 +87,18 @@
         .result-section {
             position: absolute;
             top: 50%;
-            right: -350px; /* Moves the result section out to the right */
+            right: -350px; /* Initially hidden */
             transform: translateY(-50%);
             width: 320px;
             background: #f9f9f9;
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: right 0.5s ease; /* Smooth animation */
+        }
+
+        .result-section.visible {
+            right: 20px; /* Bring it into view */
         }
 
         .result-section h2 {
@@ -129,7 +134,7 @@
     </div>
 
     <!-- Result Section -->
-    <div class="result-section">
+    <div class="result-section" id="resultSection">
         @if(isset($result))
             <div class="result">
                 <h2>Scan Result</h2>
@@ -143,5 +148,15 @@
             </div>
         @endif
     </div>
+
+    <script>
+        // Simulating result availability
+        window.onload = function () {
+            const resultSection = document.getElementById('resultSection');
+            @if(isset($result) || isset($error))
+                resultSection.classList.add('visible'); // Show the result box
+            @endif
+        };
+    </script>
 </body>
 </html>
