@@ -20,24 +20,22 @@
             height: 100vh;
             background: linear-gradient(135deg, #7f7fd5, #86a8e7, #91eae4);
             color: #333;
-            overflow: hidden;
         }
 
         .container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            flex-direction: row;
+            gap: 20px;
             background: #fff;
             padding: 25px;
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             width: 90%;
-            max-width: 600px;
-            position: relative;
+            max-width: 900px;
         }
 
         .form-section {
-            width: 100%;
+            flex: 1;
             text-align: center;
         }
 
@@ -85,20 +83,11 @@
         }
 
         .result-section {
-            position: absolute;
-            top: 50%;
-            right: -350px; /* Initially hidden */
-            transform: translateY(-50%);
-            width: 320px;
+            flex: 1;
             background: #f9f9f9;
             padding: 20px;
             border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            transition: right 0.5s ease; /* Smooth animation */
-        }
-
-        .result-section.visible {
-            right: 20px; /* Bring it into view */
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
         }
 
         .result-section h2 {
@@ -120,43 +109,33 @@
 </head>
 <body>
     <div class="container">
-        <!-- Form Section -->
         <div class="form-section">
-            <h1>RansomeWatch</h1>
+            <h1>Ransomewatch</h1>
             <p>A modern tool to scan your files for malware threats.</p>
             <form id="malwareForm" action="{{ route('malware.detect') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="file" id="fileInput" name="file" required>
                 <input type="email" id="emailInput" name="receipt_email" placeholder="Enter receipt email" required>
-                <button type="submit">Scan File</button>
+                <button type="submit">Check File</button>
             </form>
         </div>
     </div>
 
-    <!-- Result Section -->
-    <div class="result-section" id="resultSection">
-        @if(isset($result))
-            <div class="result">
-                <h2>Scan Result</h2>
-                <pre>{{ $result }}</pre>
-            </div>
-        @endif
-        @if(isset($error))
-            <div class="result">
-                <h2>Error</h2>
-                <pre>{{ $error }}</pre>
-            </div>
-        @endif
+    <div class="result-container">
+        <div class="result-section"></div>
+            @if(isset($result))
+                <div class="result">
+                    <pre>{{ $result }}</pre>
+                </div>
+            @endif
+            @if(isset($result))
+                <div class="result">
+                    <h2>Malware Scan Result</h2>
+                    <pre>{{ $error }}</pre>
+                </div>
+            @endif
+        </div>
     </div>
 
-    <script>
-        // Simulating result availability
-        window.onload = function () {
-            const resultSection = document.getElementById('resultSection');
-            @if(isset($result) || isset($error))
-                resultSection.classList.add('visible'); // Show the result box
-            @endif
-        };
-    </script>
 </body>
 </html>
