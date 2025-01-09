@@ -49,7 +49,7 @@ def send_mail(receipt_email,body):
         message.attach(MIMEText(body, 'plain'))
 
         # Connect to the Gmail SMTP server
-        with smtplib.SMTP('smtp.zoho.com', 587) as server:
+        with smtplib.SMTP('smtp.zoho.com', 465) as server:
             server.starttls()  # Start TLS encryption
             server.login(sender_email, sender_password)  # Log in to the server
             server.sendmail(sender_email, receipt_email, message.as_string())  # Send the email
