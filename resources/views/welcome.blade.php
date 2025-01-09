@@ -20,22 +20,24 @@
             height: 100vh;
             background: linear-gradient(135deg, #7f7fd5, #86a8e7, #91eae4);
             color: #333;
+            overflow: hidden;
         }
 
         .container {
             display: flex;
-            flex-direction: row;
-            gap: 20px;
+            flex-direction: column;
+            align-items: center;
             background: #fff;
             padding: 25px;
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             width: 90%;
-            max-width: 900px;
+            max-width: 600px;
+            position: relative;
         }
 
         .form-section {
-            flex: 1;
+            width: 100%;
             text-align: center;
         }
 
@@ -82,6 +84,18 @@
             background: linear-gradient(135deg, #5fa9f0, #3a77e6);
         }
 
+        .result-section {
+            position: absolute;
+            top: 50%;
+            right: -350px; /* Moves the result section out to the right */
+            transform: translateY(-50%);
+            width: 320px;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
         .result-section h2 {
             font-size: 1.5rem;
             color: #333;
@@ -112,22 +126,22 @@
                 <button type="submit">Scan File</button>
             </form>
         </div>
+    </div>
 
-        <!-- Result Section -->
-        <div class="result-section">
-            @if(isset($result))
-                <div class="result">
-                    <h2>Scan Result</h2>
-                    <pre>{{ $result }}</pre>
-                </div>
-            @endif
-            @if(isset($error))
-                <div class="result">
-                    <h2>Error</h2>
-                    <pre>{{ $error }}</pre>
-                </div>
-            @endif
-        </div>
+    <!-- Result Section -->
+    <div class="result-section">
+        @if(isset($result))
+            <div class="result">
+                <h2>Scan Result</h2>
+                <pre>{{ $result }}</pre>
+            </div>
+        @endif
+        @if(isset($error))
+            <div class="result">
+                <h2>Error</h2>
+                <pre>{{ $error }}</pre>
+            </div>
+        @endif
     </div>
 </body>
 </html>
