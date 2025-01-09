@@ -82,14 +82,6 @@
             background: linear-gradient(135deg, #5fa9f0, #3a77e6);
         }
 
-        .result-section {
-            flex: 1;
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
-        }
-
         .result-section h2 {
             font-size: 1.5rem;
             color: #333;
