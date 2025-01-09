@@ -24,7 +24,7 @@
 
         .container {
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             align-items: center;
             gap: 20px;
             background: linear-gradient(135deg, #ffffff, #f0f0f0);
@@ -116,8 +116,9 @@
             <input type="email" id="emailInput" name="receipt_email" placeholder="Enter receipt email" required>
             <button type="submit">Check File</button>
         </form>
-
+    </div>
         <!-- Result Section -->
+    <div class="container">
         @if(isset($result) || isset($error))
             <div class="result-container visible">
                 @if(isset($result))
