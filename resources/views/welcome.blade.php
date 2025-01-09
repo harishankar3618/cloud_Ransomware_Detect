@@ -18,23 +18,35 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(135deg, #ff7eb3, #ff758c, #ff9470);
+            background: linear-gradient(135deg, #7f7fd5, #86a8e7, #91eae4);
             color: #333;
         }
 
         .container {
-            background: linear-gradient(135deg, #ffffff, #f0f0f0);
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            background: #fff;
             padding: 25px;
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             width: 90%;
-            max-width: 400px;
+            max-width: 900px;
+        }
+
+        .form-section {
+            flex: 1;
             text-align: center;
         }
 
-        h1 {
+        .form-section h1 {
             font-size: 2rem;
-            color: #ff6f61;
+            color: #3a77e6;
+            margin-bottom: 1rem;
+        }
+
+        .form-section p {
+            color: #777;
             margin-bottom: 1.5rem;
         }
 
@@ -51,13 +63,13 @@
 
         input[type="file"]:hover,
         input[type="email"]:hover {
-            border-color: #ff6f61;
+            border-color: #3a77e6;
         }
 
         button {
             width: 100%;
             padding: 12px;
-            background: linear-gradient(135deg, #ff6f61, #ff9068);
+            background: linear-gradient(135deg, #3a77e6, #5fa9f0);
             border: none;
             color: white;
             border-radius: 8px;
@@ -67,40 +79,50 @@
         }
 
         button:hover {
-            background: linear-gradient(135deg, #ff9068, #ff6f61);
+            background: linear-gradient(135deg, #5fa9f0, #3a77e6);
         }
 
-        .result {
-            margin-top: 20px;
+        .result-section {
+            flex: 1;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .result-section h2 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .result-section pre {
+            background: #e9ecef;
             padding: 15px;
-            background: #f7f7f7;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            text-align: left;
+            border-radius: 8px;
             font-size: 0.9rem;
             color: #555;
-        }
-
-        .result h2 {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: #333;
+            white-space: pre-wrap;
+            word-wrap: break-word;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>RansomeWatch</h1>
-        <p style="color: #777; margin-bottom: 1rem;">
-            A modern and innovative tool to check your files for malware threats.(max file size: 10MB)
-        </p>
-        <form id="malwareForm" action="{{ route('malware.detect') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <input type="file" id="fileInput" name="file" required>
-            <input type="email" id="emailInput" name="receipt_email" placeholder="Enter receipt email" required>
-            <button type="submit">Scan File</button>
-        </form>
-        <div class="result-container">
+        <!-- Form Section -->
+        <div class="form-section">
+            <h1>RansomeWatch</h1>
+            <p>A modern tool to scan your files for malware threats.</p>
+            <form id="malwareForm" action="{{ route('malware.detect') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="file" id="fileInput" name="file" required>
+                <input type="email" id="emailInput" name="receipt_email" placeholder="Enter receipt email" required>
+                <button type="submit">Scan File</button>
+            </form>
+        </div>
+
+        <!-- Result Section -->
+        <div class="result-section">
             @if(isset($result))
                 <div class="result">
                     <h2>Scan Result</h2>
