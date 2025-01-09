@@ -1,9 +1,8 @@
 import sys
 import os
-import json
 import logging
 from scanner import YaraScanner
-from email_alert import send_malware_alert
+from email_alert import send_mail
 
 # Configure logging
 logging.basicConfig(
@@ -16,19 +15,6 @@ logging.basicConfig(
 )
 
 def detect_malware(file_path, receipt_email, file_name):
-    # Load sender credentials
-    try:
-       with open('/var/www/cloud_Ransomware_Detect/Project/config.json') as config_file:
-        config = json.load(config_file)
-
-        sender_email = config['SENDER_EMAIL']
-        sender_password = config['SENDER_PASSWORD']
-
-        logging.info("Sender credentials loaded successfully.")
-    except Exception as e:
-        logging.error(f"Failed to load sender credentials: {e}")
-        print(f"Error: {e}")
-        return
 
     # Declare the hardcoded rules directory
     rules_directory = os.path.abspath("rules")  # Specify your rules folder here
@@ -43,19 +29,39 @@ def detect_malware(file_path, receipt_email, file_name):
                     print(f"  - {match}")
                     all_files_detected.append(f"{file_name}: {match}")
                 logging.info(f"Matches found in file: {file_name}")
-                send_malware_alert(sender_email, sender_password, receipt_email, all_files_detected)
+                ody = f"""Dear User,
+
+The recent malware scan has been completed. Unfortunately, malware has been detected on your system. Here are the details of the detected malware:
+
+{all_files_detected}
+
+Please take immediate action to address this issue and ensure your system is secure.
+
+Best regards,
+Team Ransomewatch"""
+                send_mail(receipt_email,body)
                 logging.info(f"Malware alert email sent for file: {file_name}")
             else:
                 print(f"no matches found in file:{file_name}")
                 logging.info(f"No matches found in file: {file_name}")
+                body = """Dear User,
+
+The recent malware scan has been completed, and we are happy to inform you that no malware was found. Your system is safe and secure.
+
+Best regards,
+Your Security Team"""
+                send_mail(receipt_email,body)
         except FileNotFoundError as e:
             logging.error(f"File not found: {file_name}")
+            print("File not found")
         except Exception as e:
             logging.error(f"Error scanning file {file_name}: {e}")
+            print(f"Error: {e}")
 
     except Exception as e:
         logging.error(f"Error initializing YARA Scanner: {e}")
         print(f"Error: {e}")
+
 
 if __name__ == "__main__":
     file_path = sys.argv[1]

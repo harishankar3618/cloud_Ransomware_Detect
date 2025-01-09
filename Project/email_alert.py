@@ -34,14 +34,11 @@ def check_and_store_receipt_email():
         print("Receipt email saved.")
     return receipt_email
 
-def send_malware_alert(sender_email,sender_password,receipt_email,malware_details):
+def send_mail(receipt_email,body):
     """Send an email alert for detected malware during the scan"""
     try:
         # Email subject and body
-        subject = "Malware Alert: Threat Detected During Scan"
-        malware_details = "\n".join(malware_details)
-        body = f"Dear User,\n\nMalware has been detected during the recent scan. Here are the details:\n\n{malware_details}\n\nPlease take immediate action to address this issue.\n\nBest regards,\nYour Security Team"
-
+        subject = "Malware Scan Result"
         # Create the email components
         message = MIMEMultipart()
         message['From'] = sender_email
@@ -52,12 +49,12 @@ def send_malware_alert(sender_email,sender_password,receipt_email,malware_detail
         message.attach(MIMEText(body, 'plain'))
 
         # Connect to the Gmail SMTP server
-        with smtplib.SMTP('smtp.gmail.com', 587) as server:
+        with smtplib.SMTP('smtp.zoho.com', 587) as server:
             server.starttls()  # Start TLS encryption
             server.login(sender_email, sender_password)  # Log in to the server
             server.sendmail(sender_email, receipt_email, message.as_string())  # Send the email
 
-        print("Malware alert email sent successfully!")
+        print("Check mail for results")
 
     except Exception as e:
         print(f"Failed to send malware alert email: {e}")
