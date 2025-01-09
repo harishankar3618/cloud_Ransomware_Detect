@@ -37,6 +37,23 @@
             position: relative;
         }
 
+        .rcontainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            background: linear-gradient(135deg, #ffffff, #f0f0f0);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+            ransition: right 0.5s ease;
+        }
+
+
         h1 {
             font-size: 2rem;
             color: #ff6f61;
@@ -105,7 +122,7 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="rcontainer">
         <h1>Ransomewatch</h1>
         <p style="color: #777; margin-bottom: 1rem;">
             A modern and innovative tool to check your files for malware threats.
