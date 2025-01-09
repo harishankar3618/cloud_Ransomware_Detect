@@ -116,7 +116,7 @@
             <input type="email" id="emailInput" name="receipt_email" placeholder="Enter receipt email" required>
             <button type="submit">Check File</button>
         </form>
-    </div>
+
         <!-- Result Section -->
         @if(isset($result) || isset($error))
             <div class="result-container visible">
@@ -126,5 +126,6 @@
                 @endif
             </div>
         @endif
+    </div>
 </body>
 </html>
