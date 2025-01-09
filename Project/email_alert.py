@@ -5,7 +5,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 RECEIPT_EMAIL_FILE = "receipt_email.txt"
-with open('/var/www/Malware_Analysis/Project/config.json') as config_file:
+with open('/var/www/cloud_Ransomware_Detect/Project/config.json') as config_file:
     config = json.load(config_file)
 
 sender_email = config['SENDER_EMAIL']
