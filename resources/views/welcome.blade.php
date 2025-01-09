@@ -118,7 +118,6 @@
         </form>
     </div>
         <!-- Result Section -->
-    <div class="container">
         @if(isset($result) || isset($error))
             <div class="result-container visible">
                 @if(isset($result))
@@ -131,6 +130,5 @@
                 @endif
             </div>
         @endif
-    </div>
 </body>
 </html>
