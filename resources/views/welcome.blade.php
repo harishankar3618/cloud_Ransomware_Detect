@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RansomeWatch - Modern File Scanner</title>
-    <style>
+    <title>Ransomewatch</title>
+        <style>
         /* Global Reset */
         * {
             margin: 0;
@@ -18,38 +18,23 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(135deg, #7f7fd5, #86a8e7, #91eae4);
+            background: linear-gradient(135deg, #ff7eb3, #ff758c, #ff9470);
             color: #333;
-            overflow: hidden;
         }
 
         .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: #fff;
+            background: linear-gradient(135deg, #ffffff, #f0f0f0);
             padding: 25px;
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             width: 90%;
-            max-width: 600px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .form-section {
-            width: 100%;
+            max-width: 400px;
             text-align: center;
         }
 
-        .form-section h1 {
+        h1 {
             font-size: 2rem;
-            color: #3a77e6;
-            margin-bottom: 1rem;
-        }
-
-        .form-section p {
-            color: #777;
+            color: #ff6f61;
             margin-bottom: 1.5rem;
         }
 
@@ -66,13 +51,13 @@
 
         input[type="file"]:hover,
         input[type="email"]:hover {
-            border-color: #3a77e6;
+            border-color: #ff6f61;
         }
 
         button {
             width: 100%;
             padding: 12px;
-            background: linear-gradient(135deg, #3a77e6, #5fa9f0);
+            background: linear-gradient(135deg, #ff6f61, #ff9068);
             border: none;
             color: white;
             border-radius: 8px;
@@ -82,76 +67,52 @@
         }
 
         button:hover {
-            background: linear-gradient(135deg, #5fa9f0, #3a77e6);
+            background: linear-gradient(135deg, #ff9068, #ff6f61);
         }
 
-        .result-section {
-            position: absolute;
-            bottom: -200px; /* Initially hidden below */
-            left: 0;
-            width: 100%;
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            transition: bottom 0.5s ease; /* Smooth animation */
-            text-align: center;
-        }
-
-        .result-section.visible {
-            bottom: 0; /* Bring it into view */
-        }
-
-        .result-section h2 {
-            font-size: 1.5rem;
-            color: #333;
-            margin-bottom: 1rem;
-        }
-
-        .result-section pre {
-            background: #e9ecef;
+        .result {
+            margin-top: 20px;
             padding: 15px;
-            border-radius: 8px;
-            font-size: 0.9rem;
+            background: #f7f7f7;
+            border-radius: 10px;
+            text-align: left;
+            font-size: 0.9em;
             color: #555;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            overflow: auto; /* Prevent text overflow */
-            max-height: 150px; /* Limit result height */
+        }
+        .result h2 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #333
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Form Section -->
-        <div class="form-section">
-            <h1>RansomeWatch</h1>
-            <p>A modern tool to scan your files for malware threats.</p>
-            <form id="malwareForm" action="{{ route('malware.detect') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <input type="file" id="fileInput" name="file" required>
-                <input type="email" id="emailInput" name="receipt_email" placeholder="Enter receipt email" required>
-                <button type="button" id="scanButton">Scan File</button>
-            </form>
-        </div>
-
-        <!-- Result Section -->
-        <div class="result-section" id="resultSection">
-            <h2>Scan Result</h2>
-            <pre id="resultText">No result available yet.</pre>
-        </div>
+        <h1>Ransomewatch</h1>
+        <p style="color: #777; margin-bottom: 1rem;">
+            A modern and innovative tool to check your files for malware threats.
+        </p>
+        <form id="malwareForm" action="{{ route('malware.detect') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="file" id="fileInput" name="file" required>
+            <input type="email" id="emailInput" name="receipt_email" placeholder="Enter receipt email" required>
+            <button type="submit">Check File</button>
+        </form>
     </div>
 
-    <script>
-        // Simulating result visibility on button click
-        document.getElementById('scanButton').addEventListener('click', function () {
-            const resultSection = document.getElementById('resultSection');
-            const resultText = document.getElementById('resultText');
+    <div class="result-container">
+        @if(isset($result))
+            <div class="result">
+                <pre>{{ $result }}</pre>
+            </div>
+        @endif
+        @if(isset($result))
+            <div class="result">
+                <h2>Malware Scan Result</h2>
+                <pre>{{ $error }}</pre>
+            </div>
+        @endif
+    </div>
 
-            // Simulate scan process
-            resultText.textContent = "Scanning complete! No threats found."; // Example text
-            resultSection.classList.add('visible'); // Slide up the result box
-        });
-    </script>
 </body>
 </html>
