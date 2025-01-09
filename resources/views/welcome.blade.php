@@ -120,20 +120,18 @@
         </p>
         <form id="malwareForm" action="{{ route('malware.detect') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <input type="file" id="fileInput" name="files[]" multiple>
+            <input type="file" id="fileInput" name="file" required>
             <input type="email" id="emailInput" name="receipt_email" placeholder="Enter receipt email" required>
-            <button type="submit">Check Files</button>
+            <button type="submit">Check File</button>
         </form>
         </div>
 
         <!-- Result Section -->
-        @if(isset($result))
+        @if(isset($result) || isset($error))
             <div class="result-container visible">
-                @if(!empty($results))
-                    @foreach($results as $result)
-                        <p>File: {{ $result['file'] }}</p>
-                        <pre>{{ $result['output'] }}</pre>
-                    @endforeach
+                @if(isset($result))
+                    <h2>Malware Scan Result</h2>
+                    <pre>{{ $result }}</pre>
                 @endif
             </div>
         @endif
