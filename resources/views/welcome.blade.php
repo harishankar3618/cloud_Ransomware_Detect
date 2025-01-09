@@ -23,6 +23,9 @@
         }
 
         .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             background: linear-gradient(135deg, #ffffff, #f0f0f0);
             padding: 25px;
             border-radius: 15px;
