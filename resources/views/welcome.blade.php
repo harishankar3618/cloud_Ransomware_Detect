@@ -37,6 +37,13 @@
             position: relative;
         }
 
+        .display{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
         h1 {
             font-size: 2rem;
             color: #ff6f61;
@@ -105,7 +112,8 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="display">
+        <div class="container">
         <h1>Ransomewatch</h1>
         <p style="color: #777; margin-bottom: 1rem;">
             A modern and innovative tool to check your files for malware threats.
@@ -116,6 +124,7 @@
             <input type="email" id="emailInput" name="receipt_email" placeholder="Enter receipt email" required>
             <button type="submit">Check File</button>
         </form>
+        </div>
 
         <!-- Result Section -->
         @if(isset($result) || isset($error))
