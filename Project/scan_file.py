@@ -27,6 +27,7 @@ def detect_malware(file_path, receipt_email, file_name):
                 print(f"File '{file_name}' matched the following rules:")
                 for match in matches:
                     logging.info(f"  - {match}")
+                    print(f"  - {match}")
                     all_files_detected.append(f"{file_name}: {match}")
                 send_mail_found(receipt_email, all_files_detected)
                 logging.info(f"Malware alert email sent for file: {file_name}")
