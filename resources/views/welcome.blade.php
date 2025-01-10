@@ -28,11 +28,11 @@
             align-items: center;
             gap: 20px;
             background: linear-gradient(135deg, #ffffff, #f0f0f0);
-            padding: 35px; /* Increased padding for a more spacious layout */
+            padding: 35px;
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            width: 95%; /* Slightly increased width */
-            max-width: 500px; /* Increased max width for a larger container */
+            width: 95%;
+            max-width: 500px;
             text-align: center;
             position: relative;
         }
@@ -90,11 +90,11 @@
             text-align: left;
             font-size: 0.9em;
             color: #555;
-            display: none; /* Hidden by default */
+            display: none;
         }
 
         .result-container.visible {
-            display: block; /* Shown when there are results */
+            display: block;
         }
 
         .result-container h2 {
@@ -114,30 +114,37 @@
 <body>
     <div class="display">
         <div class="container">
-        <h1>Ransomewatch</h1>
-        <p style="color: #777; margin-bottom: 1rem;">
-            A modern and innovative tool to check your files for malware threats.
-        </p>
-        <form id="malwareForm" action="{{ route('malware.detect') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div>
-                <label for="upload">Upload Type:</label><br>
-                <label>
-                    <input type="checkbox" id="fileCheckbox" name="fileOrFolder" value="file">
-                    File
-                </label>
-                <label>
-                    <input type="checkbox" id="folderCheckbox" name="fileOrFolder" value="folder" checked>
-                    Folder
-                </label>
-            </div>
-            <div>
-                <label for="upload">Upload File or Folder:</label>
-                <input type="file" name="uploads[]" id="upload" webkitdirectory multiple disabled>
-            </div>
-            <input type="email" id="emailInput" name="receipt_email" placeholder="Enter receipt email" required>
-            <button type="submit">Check File</button>
-        </form>
+            <h1>Ransomewatch</h1>
+            <p style="color: #777; margin-bottom: 1rem;">
+                A modern and innovative tool to check your files for malware threats.
+            </p>
+            <form id="malwareForm" action="{{ route('malware.detect') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div>
+                    <label for="uploadType">Choose Upload Type:</label><br>
+                    <label>
+                        <input type="radio" name="fileOrFolder" value="file" id="fileRadio" checked> File
+                    </label>
+                    <label>
+                        <input type="radio" name="fileOrFolder" value="folder" id="folderRadio"> Folder
+                    </label>
+                </div>
+
+                <!-- File Upload -->
+                <div id="fileInputContainer">
+                    <label for="upload">Upload File:</label>
+                    <input type="file" name="uploads[]" id="upload" accept="*" />
+                </div>
+
+                <!-- Folder Upload (Initially hidden) -->
+                <div id="folderInputContainer" style="display: none;">
+                    <label for="uploadFolder">Upload Folder:</label>
+                    <input type="file" name="uploads[]" id="uploadFolder" webkitdirectory multiple />
+                </div>
+
+                <input type="email" id="emailInput" name="receipt_email" placeholder="Enter receipt email" required>
+                <button type="submit">Check File</button>
+            </form>
         </div>
 
         <!-- Result Section -->
@@ -161,15 +168,19 @@
     </div>
 
     <script>
-        // JavaScript to handle checkbox behavior
-        document.getElementById('fileCheckbox').addEventListener('change', function() {
-            let fileInput = document.getElementById('upload');
-            fileInput.disabled = !this.checked; // Disable if checkbox is unchecked
+        // JavaScript to handle radio button changes
+        document.getElementById('fileRadio').addEventListener('change', function() {
+            if (this.checked) {
+                document.getElementById('fileInputContainer').style.display = 'block';
+                document.getElementById('folderInputContainer').style.display = 'none';
+            }
         });
 
-        document.getElementById('folderCheckbox').addEventListener('change', function() {
-            let fileInput = document.getElementById('upload');
-            fileInput.disabled = !this.checked; // Disable if checkbox is unchecked
+        document.getElementById('folderRadio').addEventListener('change', function() {
+            if (this.checked) {
+                document.getElementById('fileInputContainer').style.display = 'none';
+                document.getElementById('folderInputContainer').style.display = 'block';
+            }
         });
     </script>
 </body>
