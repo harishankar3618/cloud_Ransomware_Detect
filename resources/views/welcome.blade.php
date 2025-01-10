@@ -31,7 +31,7 @@ class MalwareDetectionController extends Controller
             $filePath = $file->storeAs('uploads', $file->getClientOriginalName());
 
             // Get the absolute path of the uploaded file
-            $absoluteFilePath = storage_path('app/uploads/' . $filePath);
+            $absoluteFilePath = storage_path('app/private/uploads/' . $filePath);
 
             // Debugging: Check if file exists at the expected location
             if (!file_exists($absoluteFilePath)) {
