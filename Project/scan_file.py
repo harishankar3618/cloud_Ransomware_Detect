@@ -24,6 +24,7 @@ def detect_malware(file_path, receipt_email, file_name):
             matches = scanner.scan_file(file_path)
             if matches:
                 logging.info(f"File '{file_name}' matched the following rules:")
+                print(f"File '{file_name}' matched the following rules:")
                 for match in matches:
                     logging.info(f"  - {match}")
                     all_files_detected.append(f"{file_name}: {match}")
@@ -31,6 +32,7 @@ def detect_malware(file_path, receipt_email, file_name):
                 logging.info(f"Malware alert email sent for file: {file_name}")
             else:
                 logging.info(f"No matches found in file: {file_name}")
+                print(f"No matches found in file: {file_name}")
                 send_mail_notfound(receipt_email)
         except FileNotFoundError as e:
             logging.error(f"File not found: {file_name}")

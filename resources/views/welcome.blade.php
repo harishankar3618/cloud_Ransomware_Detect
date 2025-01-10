@@ -132,13 +132,11 @@
 
                 <!-- File Upload -->
                 <div id="fileInputContainer">
-                    <label for="upload">Upload File:</label>
                     <input type="file" name="uploads[]" id="upload" accept="*" />
                 </div>
 
                 <!-- Folder Upload (Initially hidden) -->
                 <div id="folderInputContainer" style="display: none;">
-                    <label for="uploadFolder">Upload Folder:</label>
                     <input type="file" name="uploads[]" id="uploadFolder" webkitdirectory multiple />
                 </div>
 
