@@ -121,13 +121,23 @@
         <form id="malwareForm" action="{{ route('malware.detect') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div>
+                <label for="upload">Upload Type:</label><br>
+                <label>
+                    <input type="checkbox" id="fileCheckbox" name="fileOrFolder" value="file">
+                    File
+                </label>
+                <label>
+                    <input type="checkbox" id="folderCheckbox" name="fileOrFolder" value="folder" checked>
+                    Folder
+                </label>
+            </div>
+            <div>
                 <label for="upload">Upload File or Folder:</label>
-                <input type="file" name="uploads[]" id="upload" webkitdirectory multiple>
+                <input type="file" name="uploads[]" id="upload" webkitdirectory multiple disabled>
             </div>
             <input type="email" id="emailInput" name="receipt_email" placeholder="Enter receipt email" required>
             <button type="submit">Check File</button>
         </form>
-
         </div>
 
         <!-- Result Section -->
@@ -149,5 +159,18 @@
             </div>
         @endif
     </div>
+
+    <script>
+        // JavaScript to handle checkbox behavior
+        document.getElementById('fileCheckbox').addEventListener('change', function() {
+            let fileInput = document.getElementById('upload');
+            fileInput.disabled = !this.checked; // Disable if checkbox is unchecked
+        });
+
+        document.getElementById('folderCheckbox').addEventListener('change', function() {
+            let fileInput = document.getElementById('upload');
+            fileInput.disabled = !this.checked; // Disable if checkbox is unchecked
+        });
+    </script>
 </body>
 </html>
