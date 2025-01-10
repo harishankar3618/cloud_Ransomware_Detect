@@ -120,7 +120,7 @@
         </p>
         <form id="malwareForm" action="{{ route('malware.detect') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <input type="file" id="fileInput" name="file" required>
+            <input type="file" id="fileInput" name="files" multiple>
             <input type="email" id="emailInput" name="receipt_email" placeholder="Enter receipt email" required>
             <button type="submit">Check File</button>
         </form>
