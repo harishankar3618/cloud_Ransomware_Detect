@@ -39,7 +39,7 @@ def detect_malware(file_path, receipt_email, file_name):
 
     except Exception as e:
         logging.error(f"Error initializing YARA Scanner: {e}")
-
+'''
 def scan_directory(directory_path, receipt_email):
     if os.path.isdir(directory_path):
         logging.info(f"Scanning directory: {directory_path}")
@@ -51,8 +51,10 @@ def scan_directory(directory_path, receipt_email):
     else:
         logging.error(f"Directory not found: {directory_path}")
         print(f"Directory not found: {directory_path}")
+'''
 
 if __name__ == "__main__":
-    directory_path = sys.argv[1]
-    receipt_email = sys.argv[2]
-    scan_directory(directory_path, receipt_email)
+    filename = sys.argv[1]
+    directory_path = sys.argv[2]
+    receipt_email = sys.argv[3]
+    detect_malware(directory_path, receipt_email, filename)
