@@ -143,6 +143,7 @@
                 <input type="email" id="emailInput" name="receipt_email" placeholder="Enter receipt email" required>
                 <button type="submit">Check File</button>
             </form>
+
         </div>
 
         <!-- Result Section -->
@@ -152,11 +153,8 @@
                 <ul>
                     @foreach($results as $result)
                         <li>
-                            <strong>File:</strong> {{ $result['file'] }}<br>
                             @if(isset($result['output']))
                                 <pre>{{ $result['output'] }}</pre>
-                            @else
-                                <pre>Error: {{ $result['error'] }}</pre>
                             @endif
                         </li>
                     @endforeach
