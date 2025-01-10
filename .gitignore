@@ -3,6 +3,7 @@
 /public/build
 /public/hot
 /public/storage
+/public/yara_scanner.log
 /storage/logs
 /storage/*.key
 /storage/pail
@@ -22,3 +23,5 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+/Project/__pycache__
+/storage/logs/laravel.log
