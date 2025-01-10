@@ -12,7 +12,6 @@ sender_password = config['SENDER_PASSWORD']
 
 def send_mail(receipt_email,result):
     """Send an email alert for detected malware during the scan"""
-    result = "\n".join(result)
     try:
         # Email subject and body
         subject = "Malware Scan Result"
