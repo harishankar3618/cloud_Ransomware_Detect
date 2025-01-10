@@ -2,7 +2,6 @@ import sys
 import os
 import logging
 from scanner import YaraScanner
-from email_alert import send_mail_notfound, send_mail_found
 
 # Configure logging
 logging.basicConfig(
@@ -14,7 +13,7 @@ logging.basicConfig(
     ]
 )
 
-def detect_malware(file_path, receipt_email, file_name):
+def detect_malware(file_path, file_name):
     # Declare the hardcoded rules directory
     rules_directory = os.path.abspath("rules")  # Specify your rules folder here
     try:
@@ -29,12 +28,11 @@ def detect_malware(file_path, receipt_email, file_name):
                     logging.info(f"  - {match}")
                     print(f"  - {match}")
                     all_files_detected.append(f"{file_name}: {match}")
-                send_mail_found(receipt_email, all_files_detected)
                 logging.info(f"Malware alert email sent for file: {file_name}")
             else:
                 logging.info(f"No matches found in file: {file_name}")
                 print(f"No matches found in file: {file_name}")
-                send_mail_notfound(receipt_email)
+
         except FileNotFoundError as e:
             logging.error(f"File not found: {file_name}")
         except Exception as e:
@@ -42,22 +40,8 @@ def detect_malware(file_path, receipt_email, file_name):
 
     except Exception as e:
         logging.error(f"Error initializing YARA Scanner: {e}")
-'''
-def scan_directory(directory_path, receipt_email):
-    if os.path.isdir(directory_path):
-        logging.info(f"Scanning directory: {directory_path}")
-        for root, dirs, files in os.walk(directory_path):
-            for file in files:
-                file_path = os.path.join(root, file)
-                logging.info(f"Scanning file: {file_path}")
-                detect_malware(file_path, receipt_email, file)
-    else:
-        logging.error(f"Directory not found: {directory_path}")
-        print(f"Directory not found: {directory_path}")
-'''
 
 if __name__ == "__main__":
     filename = sys.argv[1]
     directory_path = sys.argv[2]
-    receipt_email = sys.argv[3]
-    detect_malware(directory_path, receipt_email, filename)
+    detect_malware(directory_path, filename)
