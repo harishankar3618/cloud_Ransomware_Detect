@@ -1,0 +1,365 @@
+/*This Yara ruleset is under the GNU-GPLv2 license (http://www.gnu.org/licenses/gpl-2.0.html) and open to any user or organization, as long as you use it under this license.*/
+
+rule nthash_hashed_default_creds_muze
+{
+    meta:
+        id = "6ZIZmfyaxPB8WQyu8UXGIs"
+        fingerprint = "a18def85d9679357fd21053712a6089f72f9e5c9e86be3237d823a90c9bcd60a"
+        version = "1.0"
+        modified = "2024-02-15"
+        status = "RELEASED"
+        sharing = "TLP:WHITE"
+        source = "NDAAL GESELLSCHAFT FÜR SICHERHEIT INDER INFORMATIONSTECHNIK MBH & CO KG"
+        author = "Alaa Jubakhanji@ndaal Gesellschaft fürSicherheit in der Informationstechnik mbH & Co KG"
+        description = "Hashed values of default credentials for muze."
+        category = "INFO"
+        info = "NTHASH"
+        reference = "https://gitlab.com/ndaal_open_source/ndaal_yara_passwords_default/-/tree/main/yara_rules"
+
+strings:
+    $a0="f7a59b6c9939dbf006e475bc72304f7f"
+    $a1="209c6174da490caeb422f3fa5a7ae634"
+condition:
+    ($a0 and $a1)
+}
+
+rule mysql323_hashed_default_creds_muze
+{
+    meta:
+        version = "1.0"
+        status = "RELEASED"
+        sharing = "TLP:WHITE"
+        source = "NDAAL GESELLSCHAFT FÜR SICHERHEIT INDER INFORMATIONSTECHNIK MBH & CO KG"
+        author = "Alaa Jubakhanji@ndaal Gesellschaft fürSicherheit in der Informationstechnik mbH & Co KG"
+        description = "Hashed values of default credentials for muze."
+        category = "INFO"
+        info = "MYSQL323"
+        reference = "https://gitlab.com/ndaal_open_source/ndaal_yara_passwords_default/-/tree/main/yara_rules"
+
+strings:
+    $a0="15536a7b4f75d2ff"
+    $a1="43e9a4ab75570f5b"
+condition:
+    ($a0 and $a1)
+}
+
+rule mysql41_hashed_default_creds_muze
+{
+    meta:
+        version = "1.0"
+        status = "RELEASED"
+        sharing = "TLP:WHITE"
+        source = "NDAAL GESELLSCHAFT FÜR SICHERHEIT INDER INFORMATIONSTECHNIK MBH & CO KG"
+        author = "Alaa Jubakhanji@ndaal Gesellschaft fürSicherheit in der Informationstechnik mbH & Co KG"
+        description = "Hashed values of default credentials for muze."
+        category = "INFO"
+        info = "MYSQL41"
+        reference = "https://gitlab.com/ndaal_open_source/ndaal_yara_passwords_default/-/tree/main/yara_rules"
+
+strings:
+    $a0="*CB0408AB9E9FB763BB9448CFD049468E3CC3586D"
+    $a1="*4ACFE3202A5FF5CF467898FC58AAB1D615029441"
+condition:
+    ($a0 and $a1)
+}
+
+rule ldap_md5_hashed_default_creds_muze
+{
+    meta:
+        version = "1.0"
+        status = "RELEASED"
+        sharing = "TLP:WHITE"
+        source = "NDAAL GESELLSCHAFT FÜR SICHERHEIT INDER INFORMATIONSTECHNIK MBH & CO KG"
+        author = "Alaa Jubakhanji@ndaal Gesellschaft fürSicherheit in der Informationstechnik mbH & Co KG"
+        description = "Hashed values of default credentials for muze."
+        category = "INFO"
+        info = "LDAP_MD5"
+        reference = "https://gitlab.com/ndaal_open_source/ndaal_yara_passwords_default/-/tree/main/yara_rules"
+
+strings:
+    $a0="{MD5}kbopuEZGSY2wVRfQir6dxQ=="
+    $a1="{MD5}ISMvKXpXpadDiUoOSoAfww=="
+condition:
+    ($a0 and $a1)
+}
+
+rule ldap_sha1_hashed_default_creds_muze
+{
+    meta:
+        version = "1.0"
+        status = "RELEASED"
+        sharing = "TLP:WHITE"
+        source = "NDAAL GESELLSCHAFT FÜR SICHERHEIT INDER INFORMATIONSTECHNIK MBH & CO KG"
+        author = "Alaa Jubakhanji@ndaal Gesellschaft fürSicherheit in der Informationstechnik mbH & Co KG"
+        description = "Hashed values of default credentials for muze."
+        category = "INFO"
+        info = "LDAP_SHA1"
+        reference = "https://gitlab.com/ndaal_open_source/ndaal_yara_passwords_default/-/tree/main/yara_rules"
+
+strings:
+    $a0="{SHA}0ACK7dmBoEyMN080gXFvmTuONZs="
+    $a1="{SHA}0DPiKuNIrrVmD8IUCuw1hQxNqZc="
+condition:
+    ($a0 and $a1)
+}
+
+rule md5_hashed_default_creds_muze
+{
+    meta:
+        version = "1.0"
+        status = "RELEASED"
+        sharing = "TLP:WHITE"
+        source = "NDAAL GESELLSCHAFT FÜR SICHERHEIT INDER INFORMATIONSTECHNIK MBH & CO KG"
+        author = "Alaa Jubakhanji@ndaal Gesellschaft fürSicherheit in der Informationstechnik mbH & Co KG"
+        description = "Hashed values of default credentials for muze."
+        category = "INFO"
+        info = "MD5"
+        reference = "https://gitlab.com/ndaal_open_source/ndaal_yara_passwords_default/-/tree/main/yara_rules"
+
+strings:
+    $a0="91ba29b84646498db05517d08abe9dc5"
+    $a1="21232f297a57a5a743894a0e4a801fc3"
+condition:
+    ($a0 and $a1)
+}
+
+rule sha1_hashed_default_creds_muze
+{
+    meta:
+        version = "1.0"
+        status = "RELEASED"
+        sharing = "TLP:WHITE"
+        source = "NDAAL GESELLSCHAFT FÜR SICHERHEIT INDER INFORMATIONSTECHNIK MBH & CO KG"
+        author = "Alaa Jubakhanji@ndaal Gesellschaft fürSicherheit in der Informationstechnik mbH & Co KG"
+        description = "Hashed values of default credentials for muze."
+        category = "INFO"
+        info = "SHA1"
+        reference = "https://gitlab.com/ndaal_open_source/ndaal_yara_passwords_default/-/tree/main/yara_rules"
+
+strings:
+    $a0="d0008aedd981a04c8c374f3481716f993b8e359b"
+    $a1="d033e22ae348aeb5660fc2140aec35850c4da997"
+condition:
+    ($a0 and $a1)
+}
+
+rule sha384_hashed_default_creds_muze
+{
+    meta:
+        version = "1.0"
+        status = "RELEASED"
+        sharing = "TLP:WHITE"
+        source = "NDAAL GESELLSCHAFT FÜR SICHERHEIT INDER INFORMATIONSTECHNIK MBH & CO KG"
+        author = "Alaa Jubakhanji@ndaal Gesellschaft fürSicherheit in der Informationstechnik mbH & Co KG"
+        description = "Hashed values of default credentials for muze."
+        category = "INFO"
+        info = "SHA384"
+        reference = "https://gitlab.com/ndaal_open_source/ndaal_yara_passwords_default/-/tree/main/yara_rules"
+
+strings:
+    $a0="01080bf3db149ba8c6bf885cb81458f5a25252dc57341737ca1fae72e4ae629ad24cbbfdce72f91732d0dac81463b8dc"
+    $a1="9ca694a90285c034432c9550421b7b9dbd5c0f4b6673f05f6dbce58052ba20e4248041956ee8c9a2ec9f10290cdc0782"
+condition:
+    ($a0 and $a1)
+}
+
+rule sha224_hashed_default_creds_muze
+{
+    meta:
+        version = "1.0"
+        status = "RELEASED"
+        sharing = "TLP:WHITE"
+        source = "NDAAL GESELLSCHAFT FÜR SICHERHEIT INDER INFORMATIONSTECHNIK MBH & CO KG"
+        author = "Alaa Jubakhanji@ndaal Gesellschaft fürSicherheit in der Informationstechnik mbH & Co KG"
+        description = "Hashed values of default credentials for muze."
+        category = "INFO"
+        info = "SHA224"
+        reference = "https://gitlab.com/ndaal_open_source/ndaal_yara_passwords_default/-/tree/main/yara_rules"
+
+strings:
+    $a0="81dd96b1d6175ca208fb7f418fbe37dec0042b168eaf6c49ff16a0c3"
+    $a1="58acb7acccce58ffa8b953b12b5a7702bd42dae441c1ad85057fa70b"
+condition:
+    ($a0 and $a1)
+}
+
+rule sha512_hashed_default_creds_muze
+{
+    meta:
+        version = "1.0"
+        status = "RELEASED"
+        sharing = "TLP:WHITE"
+        source = "NDAAL GESELLSCHAFT FÜR SICHERHEIT INDER INFORMATIONSTECHNIK MBH & CO KG"
+        author = "Alaa Jubakhanji@ndaal Gesellschaft fürSicherheit in der Informationstechnik mbH & Co KG"
+        description = "Hashed values of default credentials for muze."
+        category = "INFO"
+        info = "SHA512"
+        reference = "https://gitlab.com/ndaal_open_source/ndaal_yara_passwords_default/-/tree/main/yara_rules"
+
+strings:
+    $a0="982a145eb982e948a81064feb3e949317eac3d6b32ca6b1f02208aca632ec006880c8182831cdfda9e5d3ebabc861dc3d46f735bd06bcde7e720d587c7823ede"
+    $a1="c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec"
+condition:
+    ($a0 and $a1)
+}
+
+rule sha256_hashed_default_creds_muze
+{
+    meta:
+        version = "1.0"
+        status = "RELEASED"
+        sharing = "TLP:WHITE"
+        source = "NDAAL GESELLSCHAFT FÜR SICHERHEIT INDER INFORMATIONSTECHNIK MBH & CO KG"
+        author = "Alaa Jubakhanji@ndaal Gesellschaft fürSicherheit in der Informationstechnik mbH & Co KG"
+        description = "Hashed values of default credentials for muze."
+        category = "INFO"
+        info = "SHA256"
+        reference = "https://gitlab.com/ndaal_open_source/ndaal_yara_passwords_default/-/tree/main/yara_rules"
+
+strings:
+    $a0="6f8c84a475e25e1fc78e2c9d7682686f0df04966c6d11532598a3eb7b01c2a6b"
+    $a1="8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
+condition:
+    ($a0 and $a1)
+}
+
+rule blake2b_hashed_default_creds_muze
+{
+    meta:
+        version = "1.0"
+        status = "RELEASED"
+        sharing = "TLP:WHITE"
+        source = "NDAAL GESELLSCHAFT FÜR SICHERHEIT INDER INFORMATIONSTECHNIK MBH & CO KG"
+        author = "Alaa Jubakhanji@ndaal Gesellschaft fürSicherheit in der Informationstechnik mbH & Co KG"
+        description = "Hashed values of default credentials for muze."
+        category = "INFO"
+        info = "BLAKE2B"
+        reference = "https://gitlab.com/ndaal_open_source/ndaal_yara_passwords_default/-/tree/main/yara_rules"
+
+strings:
+    $a0="36a9e6cdb1f02bc95431a41a1a6dc28afd614d0cc04a09b4b801edf28f523dca20d16f5df3be4946f10f1f87e523b7b85770301d76c0b0153cd62733738b785f"
+    $a1="bfcce2c19c8563fd4aa66f6ec607341ff25e5f6fe7fa520d7d1242d871385f23a3e8e80093120b4877d79535e10b182ae2ec8937d1f72f091e7178c9e4ff0f11"
+condition:
+    ($a0 and $a1)
+}
+
+rule blake2s_hashed_default_creds_muze
+{
+    meta:
+        version = "1.0"
+        status = "RELEASED"
+        sharing = "TLP:WHITE"
+        source = "NDAAL GESELLSCHAFT FÜR SICHERHEIT INDER INFORMATIONSTECHNIK MBH & CO KG"
+        author = "Alaa Jubakhanji@ndaal Gesellschaft fürSicherheit in der Informationstechnik mbH & Co KG"
+        description = "Hashed values of default credentials for muze."
+        category = "INFO"
+        info = "BLAKE2S"
+        reference = "https://gitlab.com/ndaal_open_source/ndaal_yara_passwords_default/-/tree/main/yara_rules"
+
+strings:
+    $a0="5a2f2f652c581f557a36caadbad2e99c07d1c38a2f9ac7a58bbc5713240df19f"
+    $a1="327e7e3821f5f6d33c090137f979bf48ee62e9051c1610e1d6468ecb3c67a124"
+condition:
+    ($a0 and $a1)
+}
+
+rule sha3_224_hashed_default_creds_muze
+{
+    meta:
+        version = "1.0"
+        status = "RELEASED"
+        sharing = "TLP:WHITE"
+        source = "NDAAL GESELLSCHAFT FÜR SICHERHEIT INDER INFORMATIONSTECHNIK MBH & CO KG"
+        author = "Alaa Jubakhanji@ndaal Gesellschaft fürSicherheit in der Informationstechnik mbH & Co KG"
+        description = "Hashed values of default credentials for muze."
+        category = "INFO"
+        info = "SHA3_224"
+        reference = "https://gitlab.com/ndaal_open_source/ndaal_yara_passwords_default/-/tree/main/yara_rules"
+
+strings:
+    $a0="4f48c7ad8e6f1a129c360356c860d7d7df25985cf67e7043342b7e54"
+    $a1="a53fff8dd075bed169e164743231ff533d8b9260b0b8073f0a4c1d20"
+condition:
+    ($a0 and $a1)
+}
+
+rule sha3_256_hashed_default_creds_muze
+{
+    meta:
+        version = "1.0"
+        status = "RELEASED"
+        sharing = "TLP:WHITE"
+        source = "NDAAL GESELLSCHAFT FÜR SICHERHEIT INDER INFORMATIONSTECHNIK MBH & CO KG"
+        author = "Alaa Jubakhanji@ndaal Gesellschaft fürSicherheit in der Informationstechnik mbH & Co KG"
+        description = "Hashed values of default credentials for muze."
+        category = "INFO"
+        info = "SHA3_256"
+        reference = "https://gitlab.com/ndaal_open_source/ndaal_yara_passwords_default/-/tree/main/yara_rules"
+
+strings:
+    $a0="6d5f5b035e2d72a054328e358426f813646ebac80fa55bb644a2b961ce75143b"
+    $a1="fb001dfcffd1c899f3297871406242f097aecf1a5342ccf3ebcd116146188e4b"
+condition:
+    ($a0 and $a1)
+}
+
+rule sha3_384_hashed_default_creds_muze
+{
+    meta:
+        version = "1.0"
+        status = "RELEASED"
+        sharing = "TLP:WHITE"
+        source = "NDAAL GESELLSCHAFT FÜR SICHERHEIT INDER INFORMATIONSTECHNIK MBH & CO KG"
+        author = "Alaa Jubakhanji@ndaal Gesellschaft fürSicherheit in der Informationstechnik mbH & Co KG"
+        description = "Hashed values of default credentials for muze."
+        category = "INFO"
+        info = "SHA3_384"
+        reference = "https://gitlab.com/ndaal_open_source/ndaal_yara_passwords_default/-/tree/main/yara_rules"
+
+strings:
+    $a0="be38b94bab10c25fb4e5f34c092d4b5ad7459439865fd88e7b22c5d6caa433d09c066e7c1635e72736d192016b0849f1"
+    $a1="9765a57f2010506383de91052915ce8bafbdb39f3e5a8c1a1693a0076365d37abbfd3305881ea3b5fa1426316afd7df3"
+condition:
+    ($a0 and $a1)
+}
+
+rule sha3_512_hashed_default_creds_muze
+{
+    meta:
+        version = "1.0"
+        status = "RELEASED"
+        sharing = "TLP:WHITE"
+        source = "NDAAL GESELLSCHAFT FÜR SICHERHEIT INDER INFORMATIONSTECHNIK MBH & CO KG"
+        author = "Alaa Jubakhanji@ndaal Gesellschaft fürSicherheit in der Informationstechnik mbH & Co KG"
+        description = "Hashed values of default credentials for muze."
+        category = "INFO"
+        info = "SHA3_512"
+        reference = "https://gitlab.com/ndaal_open_source/ndaal_yara_passwords_default/-/tree/main/yara_rules"
+
+strings:
+    $a0="a6dbff2442177ffc2d8c6103e6004cf16d25c7b6c019c4671bc8e95549f41e1987800849b5f274c37d88864db1dd996dfe8aa4b7b85451fe9b866636461f29f1"
+    $a1="5a38afb1a18d408e6cd367f9db91e2ab9bce834cdad3da24183cc174956c20ce35dd39c2bd36aae907111ae3d6ada353f7697a5f1a8fc567aae9e4ca41a9d19d"
+condition:
+    ($a0 and $a1)
+}
+
+rule base64_hashed_default_creds_muze
+{
+    meta:
+        version = "1.0"
+        status = "RELEASED"
+        sharing = "TLP:WHITE"
+        source = "NDAAL GESELLSCHAFT FÜR SICHERHEIT INDER INFORMATIONSTECHNIK MBH & CO KG"
+        author = "Alaa Jubakhanji@ndaal Gesellschaft fürSicherheit in der Informationstechnik mbH & Co KG"
+        description = "Hashed values of default credentials for muze."
+        category = "INFO"
+        info = "SHA3_512"
+        reference = "https://gitlab.com/ndaal_open_source/ndaal_yara_passwords_default/-/tree/main/yara_rules"
+
+strings:
+    $a0="YWRtaW4="
+    $a1="bXV6ZQ=="
+condition:
+    ($a0 and $a1)
+}
+
