@@ -13,12 +13,29 @@ logging.basicConfig(
     ]
 )
 
-def detect_malware(file_path, file_name):
-    # Declare the hardcoded rules directory
-    rules_directory = os.path.abspath("rules")  # Specify your rules folder here
+def get_all_rule_files(rules_directory):
+    """Recursively get all YARA rule files from the directory and its subdirectories."""
+    rule_files = []
+    for root, dirs, files in os.walk(rules_directory):
+        for file in files:
+            if file.endswith(".yar") or file.endswith(".yara"):  # YARA files should have .yar or .yara extension
+                rule_files.append(os.path.join(root, file))
+    return rule_files
+
+def detect_malware(file_path, file_name, rules_directory):
     try:
-        scanner = YaraScanner(rules_directory)
+        # Collect all YARA rule files from the directory and its subdirectories
+        rule_files = get_all_rule_files(rules_directory)
+
+        if not rule_files:
+            logging.warning(f"No YARA rules found in directory: {rules_directory}")
+            print(f"No YARA rules found in directory: {rules_directory}")
+            return
+
+        # Initialize the YaraScanner with the list of rule files
+        scanner = YaraScanner(rule_files)
         all_files_detected = []
+
         try:
             matches = scanner.scan_file(file_path)
             if matches:
@@ -42,6 +59,14 @@ def detect_malware(file_path, file_name):
         logging.error(f"Error initializing YARA Scanner: {e}")
 
 if __name__ == "__main__":
+    # Ensure the user provides both filename and directory path as command-line arguments
+    if len(sys.argv) < 3:
+        sys.exit(1)
+
     filename = sys.argv[1]
     directory_path = sys.argv[2]
+
+    # Path to your rules directory
+    rules_directory = os.path.abspath("rules")  # Specify the root directory for rules
+
     detect_malware(directory_path, filename)
