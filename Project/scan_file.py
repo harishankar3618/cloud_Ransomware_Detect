@@ -41,15 +41,14 @@ def query_malwarebazaar(file_hash, query_type='get_info'):
 
 # Function to print a detailed malware report
 def print_malware_report(file_path, file_hash, result):
-    print(f"Processing file: {file_path}")
-    print(f"SHA256: {file_hash}")
-    print("-" * 50)
 
     if result and result.get('query_status') == 'ok':
         data = result.get('data', [])
         if data:
             malware_info = data[0]
             # General Malware Information
+            print("Malware FOund and its information")
+            print("-" * 50)
             print(f"First Seen: {malware_info.get('first_seen', 'N/A')}")
             print(f"File Name: {malware_info.get('file_name', 'N/A')}")
             print(f"File Size: {malware_info.get('file_size', 'N/A')} bytes")
@@ -86,6 +85,7 @@ def print_malware_report(file_path, file_hash, result):
                     print(f"    Description: {rule.get('description', 'N/A')}")
             print("-" * 50)
     else:
+        print("-" * 50)
         print(f"No malware information found for {file_hash}")
         print("-" * 50)
 
