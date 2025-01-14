@@ -4,8 +4,6 @@ import os
 import logging
 import hashlib
 import requests
-import json
-from datetime import datetime
 
 # API settings for MalwareBazaar
 HEADERS = {'API-KEY': 'fd23d8c7e5f2848a473d070ae6c0429f1eccb89f7848a1a3'}  
@@ -13,12 +11,9 @@ API_URL = 'https://mb-api.abuse.ch/api/v1/'
 
 # Configure logging
 logging.basicConfig(
-    level=logging.INFO,  # Set the log level to INFO to capture normal events and errors
-    format="%(asctime)s - %(levelname)s - %(message)s",  # Format the log entries
-    handlers=[
-        logging.FileHandler("malware_scanner.log"),  # Log to file
-        logging.StreamHandler()  # Also log to console
-    ]
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    handlers=[logging.FileHandler("malware_scanner.log"), logging.StreamHandler()]
 )
 
 # Function to calculate SHA256 hash
@@ -44,43 +39,50 @@ def query_malwarebazaar(file_hash, query_type='get_info'):
         logging.error(f"Error querying MalwareBazaar for {file_hash}: {e}")
         return None
 
-# Function to save result to a file
-def save_report(file_path, file_hash, result):
-    # Saving to JSON file for later analysis or storage
-    report_filename = f"malware_report_{file_hash}.json"
-    try:
-        with open(report_filename, 'w') as report_file:
-            json.dump({
-                'file_path': file_path,
-                'sha256': file_hash,
-                'result': result
-            }, report_file, indent=4)
-        logging.info(f"Report saved to {report_filename}")
-    except Exception as e:
-        logging.error(f"Error saving report for {file_path}: {e}")
-
 # Function to process a single file
 def process_file(file_path):
     logging.info(f"\nProcessing file: {file_path}")
     file_hash = calculate_sha256(file_path)
     if not file_hash:
-        return
+        return None
     logging.info(f"SHA256: {file_hash}")
 
     # Query MalwareBazaar for information
     result = query_malwarebazaar(file_hash, 'get_info')
     
-    # Save the result to a file
-    save_report(file_path, file_hash, result)
+    if result:
+        # Display the result or pass it along
+        return f"File: {file_path}\nSHA256: {file_hash}\nResult: {result}\n"
+    else:
+        return f"File: {file_path}\nSHA256: {file_hash}\nNo data found."
 
 # Function to scan a directory
 def scan_directory(directory):
+    results = []
     for root, _, files in os.walk(directory):
         for file in files:
             file_path = os.path.join(root, file)
-            process_file(file_path)
+            result = process_file(file_path)
+            if result:
+                results.append(result)
+    return results
 
+# Main function to run script
 if __name__ == "__main__":
-    filename = sys.argv[1]
-    directory_path = sys.argv[2]
-    scan_directory(directory_path, filename)
+    upload_type = sys.argv[1]  # Either 'file' or 'folder'
+    path = sys.argv[2]
+
+    results = []
+
+    if upload_type == 'file':
+        # Process a single file
+        result = process_file(path)
+        if result:
+            results.append(result)
+    elif upload_type == 'folder':
+        # Process all files in a folder
+        results = scan_directory(path)
+
+    # Print all results
+    for res in results:
+        print(res)
