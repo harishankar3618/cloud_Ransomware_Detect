@@ -49,12 +49,10 @@ def process_file(file_path):
 
     # Query MalwareBazaar for information
     result = query_malwarebazaar(file_hash, 'get_info')
-    
     if result:
-        # Display the result or pass it along
-        return f"File: {file_path}\nSHA256: {file_hash}\nResult: {result}\n"
+        print_malware_report(file_path, result)
     else:
-        return f"File: {file_path}\nSHA256: {file_hash}\nNo data found."
+        print_malware_report(file_path, result)
 
 # Function to scan a directory
 def scan_directory(directory):
@@ -84,5 +82,56 @@ if __name__ == "__main__":
         results = scan_directory(path)
 
     # Print all results
-    for res in results:
-        print(res)
+    for result in results:
+        def print_malware_report(file_path, result):
+            print(f"Processing file: {file_path}")
+            print("-" * 50)
+
+            if result and result.get('query_status') == 'ok':
+                data = result.get('data', [])
+                if data:
+                    malware_info = data[0]
+                    # General Malware Information
+                    print(f"First Seen: {malware_info.get('first_seen', 'N/A')}")
+                    print(f"File Name: {malware_info.get('file_name', 'N/A')}")
+                    print(f"File Size: {malware_info.get('file_size', 'N/A')} bytes")
+                    print(f"File Type: {malware_info.get('file_type', 'N/A')}")
+                    print(f"MIME Type: {malware_info.get('file_type_mime', 'N/A')}")
+                    print(f"Tags: {', '.join(malware_info.get('tags', []))}")
+                    print(f"Signature: {malware_info.get('signature', 'N/A')}")
+                    print(f"Country of Origin: {malware_info.get('origin_country', 'N/A')}")
+                    print(f"Delivery Method: {malware_info.get('delivery_method', 'N/A')}")
+                    print("-" * 50)
+
+                    # Intelligence Section
+                    print("\nIntelligence:")
+                    intelligence = malware_info.get('intelligence', {})
+                    for key, value in intelligence.items():
+                        if isinstance(value, list):  # If the value is a list
+                            print(f"  {key}: {', '.join(value)}")
+                        else:  # If it's a single value
+                            print(f"  {key}: {value}")
+
+                    # Analysis Links Section
+                    print("\nAnalysis Links:")
+                    file_info = malware_info.get('file_information', [])
+                    for info in file_info:
+                        print(f"  {info.get('context', 'N/A')}: {info.get('value', 'N/A')}")
+
+                    # YARA Rules Section
+                    yara_rules = malware_info.get('yara_rules', [])
+                    if yara_rules:
+                        print("\nYARA Rules:")
+                        for rule in yara_rules:
+                            print(f"  Rule Name: {rule.get('rule_name', 'N/A')}")
+                            print(f"    Author: {rule.get('author', 'N/A')}")
+                            print(f"    Description: {rule.get('description', 'N/A')}")
+                    print("-" * 50)
+
+            else:
+                print(f"No malware information found for {file_path}")
+                print("-" * 50)
+
+
+
+   
