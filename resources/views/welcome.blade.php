@@ -37,7 +37,7 @@
             position: relative;
         }
 
-        .display {
+        .display{
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -91,8 +91,6 @@
             font-size: 0.9em;
             color: #555;
             display: none;
-            height: 300px; /* Limit the height of the results */
-            overflow-y: auto; /* Enable vertical scrolling */
         }
 
         .result-container.visible {
@@ -145,6 +143,7 @@
                 <input type="email" id="emailInput" name="receipt_email" placeholder="Enter receipt email" required>
                 <button type="submit">Check File</button>
             </form>
+
         </div>
 
         <!-- Result Section -->
