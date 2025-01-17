@@ -91,6 +91,8 @@
             font-size: 0.9em;
             color: #555;
             display: none;
+            max-height: 300px;  /* Set a maximum height */
+            overflow-y: auto;
         }
 
         .result-container.visible {
