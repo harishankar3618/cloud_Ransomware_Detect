@@ -23,18 +23,6 @@ def main():
     print("Welcome to the YARA Scanner Tool!")
     print("----------------------------------")
 
-    # Load sender credentials
-    '''try:
-
-        #sender_email, sender_password = load_sender_credentials()
-        sender_email = os.getenv('SENDER_EMAIL')
-        sender_password = os.getenv('SENDER_PASSWORD')
-        logging.info("Sender credentials loaded successfully.")
-    except Exception as e:
-        logging.error(f"Failed to load sender credentials: {e}")
-        print(f"Error: {e}")
-        return'''
-
     # Check and load receipt email
     receipt_email = check_and_store_receipt_email()
     logging.info(f"Receipt email loaded: {receipt_email}")

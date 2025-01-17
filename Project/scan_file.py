@@ -86,7 +86,7 @@ def print_malware_report(file_path, file_hash, result):
             print("-" * 50)
     else:
         print("-" * 50)
-        print(f"No malware information found for {file_hash}")
+        print(f"No malware information found for {file_path}")
         print("-" * 50)
 
 # Function to process a single file
