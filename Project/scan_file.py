@@ -6,7 +6,7 @@ import hashlib
 import requests
 
 # API settings for MalwareBazaar
-HEADERS = {'API-KEY': 'fd23d8c7e5f2848a473d070ae6c0429f'}  
+HEADERS = {'API-KEY': 'fd23d8c7e5f2848a473d070ae6c0429f'}
 API_URL = 'https://mb-api.abuse.ch/api/v1/'
 
 # Configure logging
@@ -48,7 +48,7 @@ def print_malware_report(file_path, file_hash, result):
             malware_info = data[0]
             # General Malware Information
             print("Malware FOund and its information")
-            print("-" * 50)
+            print("\n")
             print(f"File Name: {file_name}")
             print(f"First Seen: {malware_info.get('first_seen', 'N/A')}")
             print(f"File Name: {malware_info.get('file_name', 'N/A')}")
@@ -59,7 +59,6 @@ def print_malware_report(file_path, file_hash, result):
             print(f"Signature: {malware_info.get('signature', 'N/A')}")
             print(f"Country of Origin: {malware_info.get('origin_country', 'N/A')}")
             print(f"Delivery Method: {malware_info.get('delivery_method', 'N/A')}")
-            print("-" * 50)
 
             # Intelligence Section
             print("\nIntelligence:")
@@ -84,12 +83,9 @@ def print_malware_report(file_path, file_hash, result):
                     print(f"  Rule Name: {rule.get('rule_name', 'N/A')}")
                     print(f"    Author: {rule.get('author', 'N/A')}")
                     print(f"    Description: {rule.get('description', 'N/A')}")
-            print("-" * 50)
-    else:
-        print("-" * 50)
-        print(f"No malware information found for {file_name}")
-        print("-" * 50)
 
+    else:
+        print(f"No malware information found for {file_name}")
 # Function to process a single file
 def process_file(file_path):
     logging.info(f"Processing file: {file_path}")
