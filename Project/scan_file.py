@@ -83,9 +83,11 @@ def print_malware_report(file_path, file_hash, result):
                     print(f"  Rule Name: {rule.get('rule_name', 'N/A')}")
                     print(f"    Author: {rule.get('author', 'N/A')}")
                     print(f"    Description: {rule.get('description', 'N/A')}")
+            print("\n")
 
     else:
         print(f"No malware information found for {file_name}")
+        print("\n")
 # Function to process a single file
 def process_file(file_path):
     logging.info(f"Processing file: {file_path}")
