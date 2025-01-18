@@ -171,7 +171,7 @@
 
         <div id="ipScanTab" class="tab-content">
             <!-- IP Scan Form -->
-            <form id="ipScanForm" action="{{ route('ip.scan') }}" method="POST">
+            <form id="ipScanForm" action="/ip-scan') }}" method="POST">
                 @csrf
                 <input type="text" name="ip_address" id="ip_address" placeholder="Enter IP Address" required>
                 <button type="submit">Scan IP</button>
