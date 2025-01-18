@@ -37,21 +37,38 @@
             position: relative;
         }
 
-        .display{
+        /* Tab Styles */
+        .tabs {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
+            gap: 10px;
+            margin-bottom: 20px;
         }
 
-        h1 {
-            font-size: 2rem;
-            color: #ff6f61;
-            margin-bottom: 1.5rem;
+        .tab {
+            padding: 10px 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
         }
 
-        input[type="file"],
-        input[type="email"] {
+        .tab.active {
+            background-color: #ff6f61;
+            color: white;
+            border-color: #ff6f61;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        input[type="file"], input[type="text"], input[type="email"] {
             width: 100%;
             padding: 12px 15px;
             margin-bottom: 15px;
@@ -59,11 +76,6 @@
             border-radius: 8px;
             font-size: 1rem;
             transition: 0.3s ease;
-        }
-
-        input[type="file"]:hover,
-        input[type="email"]:hover {
-            border-color: #ff6f61;
         }
 
         button {
@@ -82,6 +94,7 @@
             background: linear-gradient(135deg, #ff9068, #ff6f61);
         }
 
+        /* Result Section */
         .result-container {
             margin-top: 20px;
             padding: 15px;
@@ -91,7 +104,7 @@
             font-size: 0.9em;
             color: #555;
             display: none;
-            max-height: 300px;  /* Set a maximum height */
+            max-height: 300px;
             overflow-y: auto;
         }
 
@@ -114,12 +127,21 @@
     </style>
 </head>
 <body>
-    <div class="display">
-        <div class="container">
-            <h1>Ransomewatch</h1>
-            <p style="color: #777; margin-bottom: 1rem;">
-                A modern and innovative tool to check your files for malware threats.
-            </p>
+    <div class="container">
+        <h1>Ransomewatch</h1>
+        <p style="color: #777; margin-bottom: 1rem;">
+            A modern and innovative tool to check your files for malware threats or scan an IP address.
+        </p>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab active" data-target="fileScanTab">File Scan</div>
+            <div class="tab" data-target="ipScanTab">IP Scan</div>
+        </div>
+
+        <!-- Tab Content -->
+        <div id="fileScanTab" class="tab-content active">
+            <!-- File Scan Form -->
             <form id="malwareForm" action="{{ route('malware.detect') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div>
@@ -145,28 +167,47 @@
                 <input type="email" id="emailInput" name="receipt_email" placeholder="Enter receipt email" required>
                 <button type="submit">Check File</button>
             </form>
-
         </div>
 
-        <!-- Result Section -->
-        @if(isset($results))
-            <div class="result-container visible">
-                <h2>Malware Scan Results</h2>
-                <ul>
-                    @foreach($results as $result)
-                        <li>
-                            @if(isset($result['output']))
-                                <pre>{{ $result['output'] }}</pre>
-                            @endif
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        <div id="ipScanTab" class="tab-content">
+            <!-- IP Scan Form -->
+            <form id="ipScanForm" action="{{ route('ip.scan') }}" method="POST">
+                @csrf
+                <input type="text" name="ip_address" id="ip_address" placeholder="Enter IP Address" required>
+                <button type="submit">Scan IP</button>
+            </form>
+
+            <!-- Display IP Scan Results -->
+            @if(isset($ipResults))
+                <div class="result-container visible">
+                    <h2>IP Scan Results</h2>
+                    <pre>{{ json_encode($ipResults, JSON_PRETTY_PRINT) }}</pre>
+                </div>
+            @endif
+        </div>
+
     </div>
 
     <script>
-        // JavaScript to handle radio button changes
+        // JavaScript to handle tab switching
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.dataset.target;
+
+                // Remove active class from all tabs
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                // Hide all tab contents
+                tabContents.forEach(content => content.classList.remove('active'));
+                document.getElementById(target).classList.add('active');
+            });
+        });
+
+        // JavaScript to handle radio button changes for file/folder upload
         document.getElementById('fileRadio').addEventListener('change', function() {
             if (this.checked) {
                 document.getElementById('fileInputContainer').style.display = 'block';
