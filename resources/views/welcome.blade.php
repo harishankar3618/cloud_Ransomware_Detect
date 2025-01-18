@@ -171,19 +171,14 @@
 
         <div id="ipScanTab" class="tab-content">
             <!-- IP Scan Form -->
-            <form id="ipScanForm" action="/ip-scan') }}" method="POST">
+            <form id="ipScanForm">
                 @csrf
                 <input type="text" name="ip_address" id="ip_address" placeholder="Enter IP Address" required>
                 <button type="submit">Scan IP</button>
             </form>
 
             <!-- Display IP Scan Results -->
-            @if(isset($ipResults))
-                <div class="result-container visible">
-                    <h2>IP Scan Results</h2>
-                    <pre>{{ json_encode($ipResults, JSON_PRETTY_PRINT) }}</pre>
-                </div>
-            @endif
+            <div id="ipScanResults" class="result-container"></div>
         </div>
 
     </div>
@@ -220,6 +215,37 @@
                 document.getElementById('fileInputContainer').style.display = 'none';
                 document.getElementById('folderInputContainer').style.display = 'block';
             }
+        });
+
+        // Handle IP Scan AJAX submission
+        document.getElementById('ipScanForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const ipAddress = document.getElementById('ip_address').value;
+            const csrfToken = document.querySelector('input[name="_token"]').value;
+
+            fetch('/ip-scan', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                body: JSON.stringify({ ip_address: ipAddress })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultContainer = document.getElementById('ipScanResults');
+                if (data.success) {
+                    resultContainer.innerHTML = `<h2>IP Scan Results</h2><pre>${JSON.stringify(data.results, null, 2)}</pre>`;
+                    resultContainer.classList.add('visible');
+                } else {
+                    resultContainer.innerHTML = `<p>Error: ${data.error}</p>`;
+                    resultContainer.classList.add('visible');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         });
     </script>
 </body>
