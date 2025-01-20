@@ -154,11 +154,6 @@
                     </label>
                 </div>
 
-                <!-- File Upload -->
-                <div id="fileInputContainer">
-                    <input type="file" name="uploads[]" id="upload" accept="*" />
-                </div>
-
                 <!-- Folder Upload (Initially hidden) -->
                 <div id="folderInputContainer" style="display: none;">
                     <input type="file" name="uploads[]" id="uploadFolder" webkitdirectory multiple />
@@ -168,39 +163,9 @@
                 <button type="submit">Check File</button>
             </form>
         </div>
-
-        <div id="ipScanTab" class="tab-content">
-            <!-- IP Scan Form -->
-            <form id="ipScanForm">
-                @csrf
-                <input type="text" name="ip_address" id="ip_address" placeholder="Enter IP Address" required>
-                <button type="submit">Scan IP</button>
-            </form>
-
-            <!-- Display IP Scan Results -->
-            <div id="ipScanResults" class="result-container"></div>
-        </div>
-
     </div>
 
     <script>
-        // JavaScript to handle tab switching
-        const tabs = document.querySelectorAll('.tab');
-        const tabContents = document.querySelectorAll('.tab-content');
-
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const target = tab.dataset.target;
-
-                // Remove active class from all tabs
-                tabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-
-                // Hide all tab contents
-                tabContents.forEach(content => content.classList.remove('active'));
-                document.getElementById(target).classList.add('active');
-            });
-        });
 
         // JavaScript to handle radio button changes for file/folder upload
         document.getElementById('fileRadio').addEventListener('change', function() {
