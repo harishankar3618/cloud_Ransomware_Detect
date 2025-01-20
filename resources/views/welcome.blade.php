@@ -132,15 +132,8 @@
         <p style="color: #777; margin-bottom: 1rem;">
             A modern and innovative tool to check your files for malware threats or scan an IP address.
         </p>
-
-        <!-- Tabs -->
-        <div class="tabs">
-            <div class="tab active" data-target="fileScanTab">File Scan</div>
-            <div class="tab" data-target="ipScanTab">IP Scan</div>
-        </div>
-
         <!-- Tab Content -->
-        <div id="fileScanTab" class="tab-content active">
+        <div>
             <!-- File Scan Form -->
             <form id="malwareForm" action="{{ route('malware.detect') }}" method="POST" enctype="multipart/form-data">
                 @csrf
