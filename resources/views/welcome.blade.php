@@ -60,6 +60,7 @@
 
         button:hover {
             background: linear-gradient(135deg, #ff9068, #ff6f61);
+            transform: scale(1.05);
         }
 
         label {
@@ -67,6 +68,25 @@
             color: #555;
             margin-bottom: 5px;
             display: block;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            border: 0;
+            clip: rect(0, 0, 0, 0);
+            clip-path: inset(50%);
+            white-space: nowrap;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+                width: 90%;
+            }
         }
     </style>
 </head>
