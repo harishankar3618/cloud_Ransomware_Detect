@@ -170,8 +170,9 @@
             </form>
 
         </div>
-
+    </div>
         <!-- Result Section -->
+    <div>
         @if(isset($results))
             <div class="result-container">
                 <h2>Malware Scan Results</h2>
@@ -187,7 +188,6 @@
             </div>
         @endif
     </div>
-
     <script>
         // JavaScript to handle radio button changes
         document.getElementById('fileRadio').addEventListener('change', function() {
