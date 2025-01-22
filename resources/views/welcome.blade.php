@@ -163,9 +163,7 @@
             </form>
 
         </div>
-    </div>
         <!-- Result Section -->
-    <div class="display"
         @if(isset($results))
             <div class="result-container">
                 <h2>Malware Scan Results</h2>
