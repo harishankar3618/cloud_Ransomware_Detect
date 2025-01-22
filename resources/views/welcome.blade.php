@@ -82,6 +82,45 @@
             white-space: nowrap;
         }
 
+        .result-container {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-container h2 {
+            font-size: 1.2rem;
+            color: #444;
+            margin-bottom: 10px;
+        }
+
+        .result-container ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .result-container li {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .result-container pre {
+            font-size: 0.85rem;
+            background: #eee;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
         @media (max-width: 600px) {
             .container {
                 padding: 20px;
@@ -127,7 +166,7 @@
 
         <!-- Result Section -->
         @if(isset($results))
-            <div class="result-container visible">
+            <div class="result-container">
                 <h2>Malware Scan Results</h2>
                 <ul>
                     @foreach($results as $result)
