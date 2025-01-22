@@ -34,6 +34,8 @@
             width: 95%;
             max-width: 500px;
             text-align: center;
+            z-index: 1;
+
         }
 
         .container h1 {
@@ -90,6 +92,7 @@
             overflow-y: auto;
             width: 100%;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1;
         }
 
         .result-container h2 {
@@ -166,7 +169,7 @@
         <!-- Result Section -->
         @if(isset($results))
             <div class="result-container">
-                <h2>Malware Scan Results</h2>
+                <h1>Malware Scan Results</h1>
                 <ul>
                     @foreach($results as $result)
                         <li>
