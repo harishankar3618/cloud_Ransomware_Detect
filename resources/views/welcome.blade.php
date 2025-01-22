@@ -24,7 +24,7 @@
 
         .container {
             display: flex;
-            flex-direction: column;
+            flex-direction: center;
             align-items: center;
             gap: 20px;
             background: linear-gradient(135deg, #ffffff, #f0f0f0);
