@@ -163,6 +163,7 @@
             </form>
 
         </div>
+    </div>
         <!-- Result Section -->
         @if(isset($results))
             <div class="result-container">
@@ -178,7 +179,6 @@
                 </ul>
             </div>
         @endif
-    </div>
     <script>
         // JavaScript to handle radio button changes
         document.getElementById('fileRadio').addEventListener('change', function() {
