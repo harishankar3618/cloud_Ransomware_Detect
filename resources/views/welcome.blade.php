@@ -36,6 +36,12 @@
             text-align: center;
         }
 
+        .container h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
         input[type="file"], input[type="email"] {
             width: 100%;
             padding: 12px 15px;
@@ -70,16 +76,8 @@
             display: block;
         }
 
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            margin: -1px;
-            padding: 0;
-            border: 0;
-            clip: rect(0, 0, 0, 0);
-            clip-path: inset(50%);
-            white-space: nowrap;
+        .file-radio, .folder-radio {
+            margin: 5px 15px 10px 0;
         }
 
         .result-container {
@@ -126,6 +124,10 @@
                 padding: 20px;
                 width: 90%;
             }
+
+            input[type="file"], input[type="email"] {
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -133,17 +135,15 @@
     <div class="display">
         <div class="container">
             <h1>Ransomewatch</h1>
-            <p style="color: #777; margin-bottom: 1rem;">
-                A modern and innovative tool to check your files for malware threats.
-            </p>
+            <p style="color: #777; margin-bottom: 1rem;">Check your files for potential malware threats easily.</p>
             <form id="malwareForm" action="{{ route('malware.detect') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div>
                     <label for="uploadType">Choose Upload Type:</label><br>
-                    <label>
+                    <label class="file-radio">
                         <input type="radio" name="fileOrFolder" value="file" id="fileRadio" checked> File
                     </label>
-                    <label>
+                    <label class="folder-radio">
                         <input type="radio" name="fileOrFolder" value="folder" id="folderRadio"> Folder
                     </label>
                 </div>
@@ -179,6 +179,7 @@
             </div>
         @endif
     </div>
+
     <script>
         // JavaScript to handle radio button changes
         document.getElementById('fileRadio').addEventListener('change', function() {
