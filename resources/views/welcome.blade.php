@@ -169,7 +169,7 @@
         <!-- Result Section -->
         @if(isset($results))
             <div class="result-container">
-                <h1>Malware Scan Results</h1>
+                <h2>Malware Scan Results</h2>
                 <ul>
                     @foreach($results as $result)
                         <li>
