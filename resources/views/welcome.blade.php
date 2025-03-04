@@ -32,6 +32,11 @@
             z-index: 0; /* Ensure particles are behind other content */
         }
         .container {
+            display: flex; /* Use flexbox for layout */
+            justify-content: space-between; /* Space between form and results */
+            align-items: flex-start; /* Align items to the start */
+            gap: 20px; /* Gap between form and results */
+            width: 100%; /* Full width */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -97,16 +102,20 @@
         }
 
         .result-container {
-            margin-top: 20px;
+            margin-top: 0; /* Remove top margin */
             padding: 15px;
             background: rgba(255, 255, 255, 0.1); /* Semi-transparent */
             border: 1px solid #ddd;
             border-radius: 8px;
             max-height: 200px;
             overflow-y: auto;
-            width: 100%;
+            width: 100%; /* Full width */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             z-index: 1;
+            opacity: 0; /* Start hidden */
+            transform: translateY(-20px); /* Start slightly above */
+            transition: opacity 0.5s ease, transform 0.5s ease; /* Animation */
+            display: none; /* Initially hidden */
         }
 
         .result-container h2 {
@@ -151,52 +160,51 @@
 <body>
     <<div id="particles-js"></div>
         <div class="container">
-            <h1>Ransomewatch</h1>
-            <p style="color: #777; margin-bottom: 1rem;">Check your files for potential malware threats easily.</p>
-            <form id="malwareForm" action="{{ route('malware.detect') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div>
-                    <label for="uploadType">Choose Upload Type:</label><br>
-                    <label class="file-radio">
-                        <input type="radio" name="fileOrFolder" value="file" id="fileRadio" checked> File
-                    </label>
-                    <label class="folder-radio">
-                        <input type="radio" name="fileOrFolder" value="folder" id="folderRadio"> Folder
-                    </label>
-                </div>
+            <div class="form-container">
+                <h1>Ransomewatch</h1>
+                <p style="color: #777; margin-bottom: 1rem;">Check your files for potential malware threats easily.</p>
+                <form id="malwareForm" action="{{ route('malware.detect') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div>
+                        <label for="uploadType">Choose Upload Type:</label><br>
+                        <label class="file-radio">
+                            <input type="radio" name="fileOrFolder" value="file" id="fileRadio" checked> File
+                        </label>
+                        <label class="folder-radio">
+                            <input type="radio" name="fileOrFolder" value="folder" id="folderRadio"> Folder
+                        </label>
+                    </div>
 
-                <!-- File Upload -->
-                <div id="fileInputContainer">
-                    <input type="file" name="uploads[]" id="upload" accept="*" />
-                </div>
+                    <!-- File Upload -->
+                    <div id="fileInputContainer">
+                        <input type="file" name="uploads[]" id="upload" accept="*" />
+                    </div>
 
-                <!-- Folder Upload (Initially hidden) -->
-                <div id="folderInputContainer" style="display: none;">
-                    <input type="file" name="uploads[]" id="uploadFolder" webkitdirectory multiple />
-                </div>
+                    <!-- Folder Upload (Initially hidden) -->
+                    <div id="folderInputContainer" style="display: none;">
+                        <input type="file" name="uploads[]" id="uploadFolder" webkitdirectory multiple />
+                    </div>
 
-                <input type="email" id="emailInput" name="receipt_email" placeholder="Enter receipt email" required>
-                <button type="submit">Check File</button>
-            </form>
-
-        </div>
+                    <input type="email" id="emailInput" name="receipt_email" placeholder="Enter receipt email" required>
+                    <button type="submit">Check File</button>
+                </form>
+            </div>
         <!-- Result Section -->
-        @if(isset($results))
-            <div class="result-container">
+            <div   div class="result-container" id="resultContainer">
                 <h2>Malware Scan Results</h2>
-                <ul>
-                    @foreach($results as $result)
-                        <li>
-                            @if(isset($result['output']))
-                                <pre>{{ $result['output'] }}</pre>
-                            @endif
-                        </li>
-                    @endforeach
+                <ul   ul id="resultList">
+                    @if(isset($results))
+                        @foreach($results as $result)
+                            <li>
+                                @if(isset($result['output']))
+                                    <pre>{{ $result['output'] }}</pre>
+                                @endif
+                            </li>
+                        @endforeach
+                    @endif
                 </ul>
             </div>
-        @endif
-    </div>
-
+        </div>
     <script>
         particlesJS("particles-js", {
             particles: {
