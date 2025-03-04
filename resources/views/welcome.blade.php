@@ -102,20 +102,20 @@
         }
 
         .result-container {
-            margin-top: 0; /* Remove top margin */
+            margin-top: 0;
             padding: 15px;
-            background: rgba(255, 255, 255, 0.1); /* Semi-transparent */
+            background: rgba(255, 255, 255, 0.1);
             border: 1px solid #ddd;
             border-radius: 8px;
             max-height: 200px;
             overflow-y: auto;
-            width: 100%; /* Full width */
+            width: 100%;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             z-index: 1;
-            opacity: 0; /* Start hidden */
-            transform: translateY(-20px); /* Start slightly above */
-            transition: opacity 0.5s ease, transform 0.5s ease; /* Animation */
-            display: none; /* Initially hidden */
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            display: none;
         }
 
         .result-container h2 {
@@ -195,7 +195,7 @@
         <div class="result-container" id="resultContainer">
             <h2>Malware Scan Results</h2>
             <ul id="resultList">
-                @if(isset($results))
+                @if(isset($results) && count($results) > 0)
                     @foreach($results as $result)
                         <li>
                             @if(isset($result['output']))
@@ -255,6 +255,15 @@
                 document.getElementById('folderInputContainer').style.display = 'block';
             }
         });
+
+        window.onload = function() {
+            let resultContainer = document.getElementById('resultContainer');
+            if (document.getElementById('resultList').children.length > 0) {
+                resultContainer.style.display = "block";
+                resultContainer.style.opacity = "1";
+                resultContainer.style.transform = "translateY(0)";
+            }
+        };
     </script>
 </body>
 </html>
