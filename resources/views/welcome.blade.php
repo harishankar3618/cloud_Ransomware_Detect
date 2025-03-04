@@ -158,53 +158,56 @@
     </style>
 </head>
 <body>
-    <<div id="particles-js"></div>
-        <div class="container">
-            <div class="form-container">
-                <h1>Ransomewatch</h1>
-                <p style="color: #777; margin-bottom: 1rem;">Check your files for potential malware threats easily.</p>
-                <form id="malwareForm" action="{{ route('malware.detect') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div>
-                        <label for="uploadType">Choose Upload Type:</label><br>
-                        <label class="file-radio">
-                            <input type="radio" name="fileOrFolder" value="file" id="fileRadio" checked> File
-                        </label>
-                        <label class="folder-radio">
-                            <input type="radio" name="fileOrFolder" value="folder" id="folderRadio"> Folder
-                        </label>
-                    </div>
+    <<body>
+    <div id="particles-js"></div>
+    <div class="container">
+        <div class="form-container">
+            <h1>Ransomewatch</h1>
+            <p style="color: #777; margin-bottom: 1rem;">Check your files for potential malware threats easily.</p>
+            <form id="malwareForm" action="{{ route('malware.detect') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div>
+                    <label for="uploadType">Choose Upload Type:</label><br>
+                    <label class="file-radio">
+                        <input type="radio" name="fileOrFolder" value="file" id="fileRadio" checked> File
+                    </label>
+                    <label class="folder-radio">
+                        <input type="radio" name="fileOrFolder" value="folder" id="folderRadio"> Folder
+                    </label>
+                </div>
 
-                    <!-- File Upload -->
-                    <div id="fileInputContainer">
-                        <input type="file" name="uploads[]" id="upload" accept="*" />
-                    </div>
+                <!-- File Upload -->
+                <div id="fileInputContainer">
+                    <input type="file" name="uploads[]" id="upload" accept="*" />
+                </div>
 
-                    <!-- Folder Upload (Initially hidden) -->
-                    <div id="folderInputContainer" style="display: none;">
-                        <input type="file" name="uploads[]" id="uploadFolder" webkitdirectory multiple />
-                    </div>
+                <!-- Folder Upload (Initially hidden) -->
+                <div id="folderInputContainer" style="display: none;">
+                    <input type="file" name="uploads[]" id="uploadFolder" webkitdirectory multiple />
+                </div>
 
-                    <input type="email" id="emailInput" name="receipt_email" placeholder="Enter receipt email" required>
-                    <button type="submit">Check File</button>
-                </form>
-            </div>
-        <!-- Result Section -->
-            <div   div class="result-container" id="resultContainer">
-                <h2>Malware Scan Results</h2>
-                <ul   ul id="resultList">
-                    @if(isset($results))
-                        @foreach($results as $result)
-                            <li>
-                                @if(isset($result['output']))
-                                    <pre>{{ $result['output'] }}</pre>
-                                @endif
-                            </li>
-                        @endforeach
-                    @endif
-                </ul>
-            </div>
+                <input type="email" id="emailInput" name="receipt_email" placeholder="Enter receipt email" required>
+                <button type="submit">Check File</button>
+            </form>
         </div>
+
+        <!-- Result Section -->
+        <div class="result-container" id="resultContainer">
+            <h2>Malware Scan Results</h2>
+            <ul id="resultList">
+                @if(isset($results))
+                    @foreach($results as $result)
+                        <li>
+                            @if(isset($result['output']))
+                                <pre>{{ $result['output'] }}</pre>
+                            @endif
+                        </li>
+                    @endforeach
+                @endif
+            </ul>
+        </div>
+    </div>
+
     <script>
         particlesJS("particles-js", {
             particles: {
