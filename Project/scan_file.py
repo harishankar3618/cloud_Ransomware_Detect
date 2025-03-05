@@ -47,7 +47,7 @@ def print_malware_report(file_path, file_hash, result):
         if data:
             malware_info = data[0]
             # General Malware Information
-            print("Malware FOund and its information")
+            print(f"Malware Found in {file_name} and its information")
             print("\n")
             print(f"File Name: {file_name}")
             print(f"First Seen: {malware_info.get('first_seen', 'N/A')}")
