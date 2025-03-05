@@ -26,108 +26,106 @@ def send_mail(receipt_email, result):
             <style>
                 body {{
                     font-family: 'Russo One', sans-serif;
-                    background: #0e0e0e;
+                    background: linear-gradient(35deg, #013a2e, #0e0e0e);
                     color: #fff;
                     margin: 0;
                     padding: 0;
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    min-height: 100vh;
                 }}
 
                 .email-container {{
                     max-width: 600px;
                     width: 100%;
                     margin: 20px auto;
-                    background: rgba(255, 255, 255, 0.1);
-                    backdrop-filter: blur(10px);
+                    background: rgba(0, 0, 0, 0.6); /* Dark background with opacity */
+                    backdrop-filter: blur(15px);
                     border-radius: 15px;
-                    padding: 25px;
-                    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+                    padding: 30px;
+                    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+                    border: 1px solid rgba(0, 255, 204, 0.2);
                     text-align: center;
                 }}
 
                 .email-header {{
-                    font-size: 24px;
+                    font-size: 28px;
                     color: #00ffcc;
-                    margin-bottom: 10px;
+                    margin-bottom: 15px;
+                    text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
                 }}
 
                 .email-body {{
                     font-size: 16px;
-                    line-height: 1.5;
-                    color: #ddd;
+                    line-height: 1.6;
+                    color: #e0e0e0;
+                    margin-bottom: 20px;
                 }}
 
                 .scan-results {{
-                    margin-top: 15px;
-                    padding: 15px;
-                    background: rgba(255, 255, 255, 0.1);
+                    margin-top: 20px;
+                    padding: 20px;
+                    background: rgba(255, 255, 255, 0.05);
                     border-radius: 10px;
+                    border: 1px solid rgba(0, 255, 204, 0.1);
                     text-align: left;
                 }}
 
                 .scan-results h2 {{
                     color: #00ffcc;
-                    font-size: 18px;
-                    margin-bottom: 10px;
+                    font-size: 20px;
+                    margin-bottom: 15px;
+                    border-bottom: 1px solid rgba(0, 255, 204, 0.2);
+                    padding-bottom: 10px;
                 }}
 
                 .scan-results pre {{
-                    background: rgba(0, 255, 204, 0.2);
-                    padding: 10px;
-                    border-radius: 5px;
+                    background: rgba(0, 255, 204, 0.1);
+                    padding: 15px;
+                    border-radius: 8px;
                     color: #fff;
                     white-space: pre-wrap;
                     word-wrap: break-word;
                     max-height: 300px;
                     overflow-y: auto;
+                    font-size: 14px;
+                    line-height: 1.5;
                 }}
 
                 .footer {{
-                    margin-top: 20px;
+                    margin-top: 25px;
                     font-size: 14px;
                     color: #888;
                     border-top: 1px solid rgba(0, 255, 204, 0.2);
-                    padding-top: 10px;
+                    padding-top: 15px;
                 }}
 
-                .button {{
-                    display: inline-block;
-                    margin-top: 15px;
-                    padding: 12px 20px;
-                    background: linear-gradient(135deg, #00ffcc, #019c82);
-                    border-radius: 8px;
-                    color: white;
-                    text-decoration: none;
-                    font-size: 16px;
-                    transition: 0.3s ease-in-out;
-                }}
-
-                .button:hover {{
-                    background: linear-gradient(135deg, #138673, #0d5a4d);
-                    transform: scale(1.05);
+                .footer p {{
+                    margin: 5px 0;
                 }}
             </style>
         </head>
         <body>
             <div class="email-container">
-                <h1 class="email-header">Ransomewatch - Malware Scan Report</h1>
+                <h1 class="email-header">Ransomewatch</h1>
                 <p class="email-body">
-                    Hello,<br><br>
-                    We've completed a scan of your files and detected potential security risks.
+                    Security Scan Report<br><br>
+                    We've completed a comprehensive scan of your files and detected potential security risks.
                 </p>
                 <div class="scan-results">
                     <h2>Detailed Scan Results</h2>
                     <pre>{result}</pre>
                 </div>
                 <div class="footer">
-                    <p>© Ransomewatch | Automated Security Scan</p>
+                    <p>© 2024 Ransomewatch</p>
+                    <p>Automated Security Notification</p>
                     <p>This is an automated email. Please do not reply.</p>
                 </div>
             </div>
         </body>
         </html>'''
+
 
         # Create the email components
         message = MIMEMultipart()
