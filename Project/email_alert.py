@@ -111,7 +111,6 @@ def send_mail(receipt_email, result):
                 <h1 class="email-header">Ransomewatch</h1>
                 <p class="email-body">
                     Security Scan Report<br><br>
-                    We've completed a comprehensive scan of your files and detected potential security risks.
                 </p>
                 <div class="scan-results">
                     <h2>Detailed Scan Results</h2>
@@ -119,8 +118,7 @@ def send_mail(receipt_email, result):
                 </div>
                 <div class="footer">
                     <p>© 2024 Ransomewatch</p>
-                    <p>Automated Security Notification</p>
-                    <p>This is an automated email. Please do not reply.</p>
+                    <p>Contac Us For any Quieres</p>
                 </div>
             </div>
         </body>
