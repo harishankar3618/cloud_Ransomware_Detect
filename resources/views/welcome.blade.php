@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ransomewatch</title>
+
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
@@ -98,6 +99,11 @@
             margin-bottom: 5px;
             display: block;
         }
+        .logo {
+            width: 120px; /* Adjust the size as needed */
+            height: auto;
+            margin-bottom: 10px;
+        }
 
         .file-radio, .folder-radio {
             margin: 5px 15px 10px 0;
@@ -164,6 +170,7 @@
     <div id="particles-js"></div>
     <div class="container">
         <div class="form-container">
+            <img src="logo.png" alt="Ransomewatch Logo" class="logo">
             <h1>Ransomewatch</h1>
             <p style="color: #777; margin-bottom: 1rem;">Check your files for potential malware threats easily.</p>
             <form id="malwareForm" action="{{ route('malware.detect') }}" method="POST" enctype="multipart/form-data">
