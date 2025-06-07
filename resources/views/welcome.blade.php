@@ -22,58 +22,70 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             background: linear-gradient(35deg, #013a2e, #0e0e0e);
             color: #fff;
-            position: relative; /* Added for positioning particles */
-            overflow: hidden;
+            position: relative;
+            overflow-x: hidden;
+            padding: 20px;
         }
+
         #particles-js {
-            position: absolute;
+            position: fixed;
             width: 100%;
             height: 100%;
-            z-index: 0; /* Ensure particles are behind other content */
+            z-index: 0;
+            top: 0;
+            left: 0;
         }
-        .container {
-            display: flex; /* Use flexbox for layout */
-            justify-content: space-between; /* Space between form and results */
-            align-items: flex-start; /* Align items to the start */
-            gap: 20px; /* Gap between form and results */
-            width: 100%; /* Full width */
+
+        .main-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
-            background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
-            backdrop-filter: blur(10px); /* Glass effect */
+            gap: 30px;
+            width: 100%;
+            max-width: 800px;
+            z-index: 1;
+            position: relative;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             padding: 35px;
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-            width: 95%;
+            width: 100%;
             max-width: 500px;
             text-align: center;
-            z-index: 1; /* Ensure container is above particles */
+            border: 1px solid rgba(0, 255, 204, 0.2);
         }
 
         .container h1 {
             font-size: 2rem;
             margin-bottom: 10px;
-            color: #00ffcc; /* Neon color */
+            color: #00ffcc;
         }
 
         input[type="file"], input[type="email"] {
             width: 100%;
             padding: 12px 15px;
             margin-bottom: 15px;
-            border: 1px solid #00ffcc; /* Neon border */
+            border: 1px solid #00ffcc;
             border-radius: 8px;
             font-size: 1rem;
             transition: 0.3s ease;
-            background: rgba(255, 255, 255, 0.2); /* Semi-transparent input */
-            color: #fff; /* White text */
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
         }
+
         input[type="file"]:hover, input[type="email"]:hover {
-            border-color: #138673; /* Change border color on hover */
+            border-color: #138673;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
         }
 
         button {
@@ -85,22 +97,29 @@
             border-radius: 8px;
             cursor: pointer;
             font-size: 1rem;
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         button:hover {
             background: linear-gradient(135deg, #138673, #0d5a4d);
-            transform: scale(1.05)
+            transform: scale(1.05);
+        }
+
+        button:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
         }
 
         label {
             font-size: 0.95rem;
-            color: #00ffcc; /* Neon color */
+            color: #00ffcc;
             margin-bottom: 5px;
             display: block;
         }
+
         .logo {
-            width: 120px; /* Adjust the size as needed */
+            width: 120px;
             height: auto;
             margin-bottom: 10px;
         }
@@ -110,47 +129,84 @@
         }
 
         .result-container {
-            margin-top: 0;
-            padding: 15px;
             background: rgba(255, 255, 255, 0.1);
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            max-height: 200px;
-            overflow-y: auto;
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 15px;
+            padding: 20px;
             width: 100%;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            z-index: 1;
-            opacity: 0;
-            transform: translateY(-20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-            display: none;
+            max-width: 700px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
         }
 
         .result-container h2 {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             color: #00ffcc;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .result-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #00ffcc;
+        }
+
+        .result-item h3 {
+            color: #00ffcc;
+            font-size: 1.1rem;
             margin-bottom: 10px;
         }
 
-        .result-container ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .result-container li {
-            font-size: 0.95rem;
-            color: #fff;
-            margin-bottom: 10px;
-        }
-
-        .result-container pre {
-            font-size: 0.85rem;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 10px;
+        .result-item pre {
+            font-size: 0.9rem;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px;
             border-radius: 5px;
             overflow-x: auto;
             white-space: pre-wrap;
             word-wrap: break-word;
+            color: #fff;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .alert-success {
+            background: rgba(0, 255, 204, 0.1);
+            border: 1px solid #00ffcc;
+            color: #00ffcc;
+        }
+
+        .alert-error {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid #ff4444;
+            color: #ff4444;
+        }
+
+        .loading {
+            display: none;
+            color: #00ffcc;
+            margin-top: 10px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .no-results {
+            text-align: center;
+            color: #888;
+            font-style: italic;
+            padding: 20px;
         }
 
         @media (max-width: 600px) {
@@ -162,59 +218,129 @@
             input[type="file"], input[type="email"] {
                 font-size: 0.9rem;
             }
+
+            .result-container {
+                width: 90%;
+            }
         }
     </style>
 </head>
 <body>
-    <<body>
     <div id="particles-js"></div>
-    <div class="container">
-        <div class="form-container">
-            <img src="logo.png" alt="Ransomewatch Logo" class="logo">
-            <h1>Ransomewatch</h1>
-            <p style="color: #777; margin-bottom: 1rem;">Check your files for potential malware threats easily.</p>
-            <form id="malwareForm" action="{{ route('malware.detect') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div>
-                    <label for="uploadType">Choose Upload Type:</label><br>
-                    <label class="file-radio">
-                        <input type="radio" name="fileOrFolder" value="file" id="fileRadio" checked> File
-                    </label>
-                    <label class="folder-radio">
-                        <input type="radio" name="fileOrFolder" value="folder" id="folderRadio"> Folder
-                    </label>
-                </div>
+    
+    <div class="main-container">
+        <div class="container">
+            <div class="form-container">
+                <img src="logo.png" alt="Ransomewatch Logo" class="logo">
+                <h1>Ransomewatch</h1>
+                <p style="color: #777; margin-bottom: 1rem;">Check your files for potential malware threats easily.</p>
+                
+                <!-- Display success/error messages -->
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
 
-                <!-- File Upload -->
-                <div id="fileInputContainer">
-                    <input type="file" name="uploads[]" id="upload" accept="*" />
-                </div>
+                @if(session('error'))
+                    <div class="alert alert-error">
+                        {{ session('error') }}
+                    </div>
+                @endif
 
-                <!-- Folder Upload (Initially hidden) -->
-                <div id="folderInputContainer" style="display: none;">
-                    <input type="file" name="uploads[]" id="uploadFolder" webkitdirectory multiple />
-                </div>
+                @if ($errors->any())
+                    <div class="alert alert-error">
+                        <ul style="margin: 0; padding-left: 20px;">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
-                <input type="email" id="emailInput" name="receipt_email" placeholder="Enter receipt email" required>
-                <button type="submit">Check File</button>
-            </form>
+                <form id="malwareForm" action="{{ route('malware.detect') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div>
+                        <label for="uploadType">Choose Upload Type:</label><br>
+                        <label class="file-radio">
+                            <input type="radio" name="fileOrFolder" value="file" id="fileRadio" checked> File
+                        </label>
+                        <label class="folder-radio">
+                            <input type="radio" name="fileOrFolder" value="folder" id="folderRadio"> Folder
+                        </label>
+                    </div>
+
+                    <!-- File Upload -->
+                    <div id="fileInputContainer">
+                        <input type="file" name="uploads[]" id="upload" accept="*" required />
+                    </div>
+
+                    <!-- Folder Upload (Initially hidden) -->
+                    <div id="folderInputContainer" style="display: none;">
+                        <input type="file" name="uploads[]" id="uploadFolder" webkitdirectory multiple required />
+                    </div>
+
+                    <input type="email" id="emailInput" name="receipt_email" placeholder="Enter receipt email" 
+                           value="{{ old('receipt_email') }}" required>
+                    
+                    <button type="submit" id="submitBtn">Check File</button>
+                    
+                    <div class="loading" id="loadingMessage">
+                        <i class="fas fa-spinner fa-spin"></i> Scanning files, please wait...
+                    </div>
+                </form>
+            </div>
         </div>
 
         <!-- Result Section -->
-        <div class="result-container" id="resultContainer">
-            <h2>Malware Scan Results</h2>
-            <ul id="resultList">
-                @if(isset($results) && count($results) > 0)
-                    @foreach($results as $result)
-                        <li>
-                            @if(isset($result['output']))
-                                <pre>{{ $result['output'] }}</pre>
-                            @endif
-                        </li>
-                    @endforeach
-                @endif
-            </ul>
-        </div>
+        @if(isset($results) && is_array($results) && count($results) > 0)
+            <div class="result-container">
+                <h2>Malware Scan Results</h2>
+                @foreach($results as $result)
+                    <div class="result-item">
+                        <h3>{{ $result['file'] ?? 'Unknown File' }}</h3>
+                        @if(isset($result['output']) && !empty(trim($result['output'])))
+                            <pre>{{ $result['output'] }}</pre>
+                        @else
+                            <p style="color: #888;">No scan output available or file is clean</p>
+                        @endif
+                        @if(isset($result['error']) && !empty($result['error']))
+                            <div style="color: #ff4444; margin-top: 10px;">
+                                <strong>Error:</strong>
+                                <pre style="background: rgba(255, 0, 0, 0.1);">{{ $result['error'] }}</pre>
+                            </div>
+                        @endif
+                    </div>
+                @endforeach
+            </div>
+        @elseif(isset($scan_completed) && $scan_completed)
+            <div class="result-container">
+                <div class="no-results">
+                    No results to display. This might indicate that the scan completed but no malware was detected.
+                </div>
+            </div>
+        @endif
+
+        <!-- IP Results Section (if exists) -->
+        @if(isset($ipResults) && !empty($ipResults))
+            <div class="result-container">
+                <h2>IP Scan Results</h2>
+                <div class="result-item">
+                    <pre>{{ json_encode($ipResults, JSON_PRETTY_PRINT) }}</pre>
+                </div>
+            </div>
+        @endif
+
+        <!-- Debug Section (remove in production) -->
+        @if(config('app.debug') && isset($results))
+            <div class="result-container" style="border-color: #ff4444;">
+                <h2 style="color: #ff4444;">Debug Info</h2>
+                <div class="result-item">
+                    <h3>Results Variable:</h3>
+                    <pre>{{ print_r($results, true) }}</pre>
+                </div>
+            </div>
+        @endif
     </div>
 
     <script>
@@ -226,7 +352,7 @@
                 line_linked: {
                     enable: true,
                     distance: 150,
-                    color: "#00ffcc", // Neon color
+                    color: "#00ffcc",
                     opacity: 0.4,
                     width: 1
                 },
@@ -250,11 +376,14 @@
             },
             retina_detect: true
         });
+
         // JavaScript to handle radio button changes
         document.getElementById('fileRadio').addEventListener('change', function() {
             if (this.checked) {
                 document.getElementById('fileInputContainer').style.display = 'block';
                 document.getElementById('folderInputContainer').style.display = 'none';
+                document.getElementById('upload').required = true;
+                document.getElementById('uploadFolder').required = false;
             }
         });
 
@@ -262,17 +391,17 @@
             if (this.checked) {
                 document.getElementById('fileInputContainer').style.display = 'none';
                 document.getElementById('folderInputContainer').style.display = 'block';
+                document.getElementById('upload').required = false;
+                document.getElementById('uploadFolder').required = true;
             }
         });
 
-        window.onload = function() {
-            let resultContainer = document.getElementById('resultContainer');
-            if (document.getElementById('resultList').children.length > 0) {
-                resultContainer.style.display = "block";
-                resultContainer.style.opacity = "1";
-                resultContainer.style.transform = "translateY(0)";
-            }
-        };
+        // Handle form submission with loading state
+        document.getElementById('malwareForm').addEventListener('submit', function() {
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('submitBtn').textContent = 'Scanning...';
+            document.getElementById('loadingMessage').classList.add('show');
+        });
     </script>
 </body>
 </html>

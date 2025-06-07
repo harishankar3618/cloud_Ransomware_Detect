@@ -1,14 +1,34 @@
+#!/usr/bin/env python3
 import sys
 import smtplib
 import json
+import os
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-with open('/var/www/cloud_Ransomware_Detect/Project/config.json') as config_file:
-    config = json.load(config_file)
+# Try to load config with error handling
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+CONFIG_PATH = os.path.join(BASE_DIR, "config.json")
 
-sender_email = config['SENDER_EMAIL']
-sender_password = config['SENDER_PASSWORD']
+config_path = CONFIG_PATH
+try:
+    if not os.path.exists(config_path):
+        print(f"Config file not found at {config_path}")
+        sys.exit(1)
+        
+    with open(config_path) as config_file:
+        config = json.load(config_file)
+        
+    sender_email = config.get('SENDER_EMAIL')
+    sender_password = config.get('SENDER_PASSWORD')
+    
+    if not sender_email or not sender_password:
+        print("Missing SENDER_EMAIL or SENDER_PASSWORD in config")
+        sys.exit(1)
+        
+except Exception as e:
+    print(f"Error loading config: {e}")
+    sys.exit(1)
 
 def send_mail(receipt_email, result):
     """Send an email alert for detected malware during the scan"""
@@ -40,7 +60,7 @@ def send_mail(receipt_email, result):
                     max-width: 600px;
                     width: 100%;
                     margin: 20px auto;
-                    background: rgba(0, 0, 0, 0.6); /* Dark background with opacity */
+                    background: rgba(0, 0, 0, 0.6);
                     backdrop-filter: blur(15px);
                     border-radius: 15px;
                     padding: 30px;
@@ -118,12 +138,11 @@ def send_mail(receipt_email, result):
                 </div>
                 <div class="footer">
                     <p>© 2024 Ransomewatch</p>
-                    <p>Contac Us For any Quieres</p>
+                    <p>Contact Us For any Queries</p>
                 </div>
             </div>
         </body>
         </html>'''
-
 
         # Create the email components
         message = MIMEMultipart()
@@ -135,17 +154,33 @@ def send_mail(receipt_email, result):
         message.attach(MIMEText(body, 'html'))
 
         # Connect to the Gmail SMTP server
+        print(f"Attempting to send email to {receipt_email}")
         with smtplib.SMTP('smtp.gmail.com', 587) as server:
             server.starttls()  # Start TLS encryption
             server.login(sender_email, sender_password)  # Log in to the server
             server.sendmail(sender_email, receipt_email, message.as_string())  # Send the email
 
-        print("Check mail for results")
+        print("Email sent successfully - Check mail for results")
+        return True
 
+    except smtplib.SMTPAuthenticationError as e:
+        print(f"SMTP Authentication failed: {e}")
+        print("Please check if you're using an App Password for Gmail")
+        return False
+    except smtplib.SMTPException as e:
+        print(f"SMTP error occurred: {e}")
+        return False
     except Exception as e:
         print(f"Failed to send malware alert email: {e}")
+        return False
 
 if __name__ == "__main__":
+    if len(sys.argv) != 3:
+        print("Usage: python3 email_alert.py <result> <receipt_email>")
+        sys.exit(1)
+        
     result = sys.argv[1]
     receipt_email = sys.argv[2]
-    send_mail(receipt_email, result)
+    
+    success = send_mail(receipt_email, result)
+    sys.exit(0 if success else 1)
