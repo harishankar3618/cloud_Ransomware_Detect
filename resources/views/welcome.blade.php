@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ransomewatch</title>
-
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
@@ -223,29 +222,35 @@
                 width: 90%;
             }
         }
+        #folderInputContainer, #fileInputContainer {
+            position: relative;
+        }
+
+        #folderInputContainer.hidden,
+        #fileInputContainer.hidden {
+            opacity: 0;
+            position: absolute;
+            height: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
     <div id="particles-js"></div>
-    
     <div class="main-container">
         <div class="container">
             <div class="form-container">
                 <img src="logo.png" alt="Ransomewatch Logo" class="logo">
                 <h1>Ransomewatch</h1>
                 <p style="color: #777; margin-bottom: 1rem;">Check your files for potential malware threats easily.</p>
-                
-                <!-- Display success/error messages -->
+
                 @if(session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
+                    <div class="alert alert-success">{{ session('success') }}</div>
                 @endif
 
                 @if(session('error'))
-                    <div class="alert alert-error">
-                        {{ session('error') }}
-                    </div>
+                    <div class="alert alert-error">{{ session('error') }}</div>
                 @endif
 
                 @if ($errors->any())
@@ -260,31 +265,28 @@
 
                 <form id="malwareForm" action="{{ route('malware.detect') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div>
-                        <label for="uploadType">Choose Upload Type:</label><br>
-                        <label class="file-radio">
-                            <input type="radio" name="fileOrFolder" value="file" id="fileRadio" checked> File
-                        </label>
-                        <label class="folder-radio">
-                            <input type="radio" name="fileOrFolder" value="folder" id="folderRadio"> Folder
-                        </label>
-                    </div>
 
-                    <!-- File Upload -->
+                    <label for="uploadType">Choose Upload Type:</label><br>
+                    <label class="file-radio">
+                        <input type="radio" name="fileOrFolder" value="file" id="fileRadio" checked> File
+                    </label>
+                    <label class="folder-radio">
+                        <input type="radio" name="fileOrFolder" value="folder" id="folderRadio"> Folder
+                    </label>
+
                     <div id="fileInputContainer">
-                        <input type="file" name="uploads[]" id="upload" accept="*" required />
+                        <input type="file" name="uploads[]" id="upload" accept="*">
                     </div>
 
-                    <!-- Folder Upload (Initially hidden) -->
-                    <div id="folderInputContainer" style="display: none;">
-                        <input type="file" name="uploads[]" id="uploadFolder" webkitdirectory multiple required />
+                    <div id="folderInputContainer" class="hidden">
+                        <input type="file" name="uploads[]" id="uploadFolder" webkitdirectory multiple>
                     </div>
 
                     <input type="email" id="emailInput" name="receipt_email" placeholder="Enter receipt email" 
                            value="{{ old('receipt_email') }}" required>
-                    
+
                     <button type="submit" id="submitBtn">Check File</button>
-                    
+
                     <div class="loading" id="loadingMessage">
                         <i class="fas fa-spinner fa-spin"></i> Scanning files, please wait...
                     </div>
@@ -292,7 +294,6 @@
             </div>
         </div>
 
-        <!-- Result Section -->
         @if(isset($results) && is_array($results) && count($results) > 0)
             <div class="result-container">
                 <h2>Malware Scan Results</h2>
@@ -321,7 +322,6 @@
             </div>
         @endif
 
-        <!-- IP Results Section (if exists) -->
         @if(isset($ipResults) && !empty($ipResults))
             <div class="result-container">
                 <h2>IP Scan Results</h2>
@@ -331,7 +331,6 @@
             </div>
         @endif
 
-        <!-- Debug Section (remove in production) -->
         @if(config('app.debug') && isset($results))
             <div class="result-container" style="border-color: #ff4444;">
                 <h2 style="color: #ff4444;">Debug Info</h2>
@@ -356,9 +355,7 @@
                     opacity: 0.4,
                     width: 1
                 },
-                shape: {
-                    type: "circle",
-                }
+                shape: { type: "circle" }
             },
             interactivity: {
                 events: {
@@ -377,27 +374,38 @@
             retina_detect: true
         });
 
-        // JavaScript to handle radio button changes
-        document.getElementById('fileRadio').addEventListener('change', function() {
+        const fileRadio = document.getElementById('fileRadio');
+        const folderRadio = document.getElementById('folderRadio');
+        const fileInputContainer = document.getElementById('fileInputContainer');
+        const folderInputContainer = document.getElementById('folderInputContainer');
+
+        fileRadio.addEventListener('change', function () {
             if (this.checked) {
-                document.getElementById('fileInputContainer').style.display = 'block';
-                document.getElementById('folderInputContainer').style.display = 'none';
-                document.getElementById('upload').required = true;
-                document.getElementById('uploadFolder').required = false;
+                fileInputContainer.classList.remove('hidden');
+                folderInputContainer.classList.add('hidden');
             }
         });
 
-        document.getElementById('folderRadio').addEventListener('change', function() {
+        folderRadio.addEventListener('change', function () {
             if (this.checked) {
-                document.getElementById('fileInputContainer').style.display = 'none';
-                document.getElementById('folderInputContainer').style.display = 'block';
-                document.getElementById('upload').required = false;
-                document.getElementById('uploadFolder').required = true;
+                folderInputContainer.classList.remove('hidden');
+                fileInputContainer.classList.add('hidden');
             }
         });
 
-        // Handle form submission with loading state
-        document.getElementById('malwareForm').addEventListener('submit', function() {
+        document.getElementById('malwareForm').addEventListener('submit', function (e) {
+            const isFile = fileRadio.checked;
+            const fileInput = document.getElementById('upload');
+            const folderInput = document.getElementById('uploadFolder');
+
+            const selectedFiles = isFile ? fileInput.files : folderInput.files;
+
+            if (!selectedFiles.length) {
+                alert("Please select at least one file or folder.");
+                e.preventDefault();
+                return;
+            }
+
             document.getElementById('submitBtn').disabled = true;
             document.getElementById('submitBtn').textContent = 'Scanning...';
             document.getElementById('loadingMessage').classList.add('show');
