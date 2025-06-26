@@ -175,12 +175,13 @@ def send_mail(receipt_email, result):
         return False
 
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print("Usage: python3 email_alert.py <result> <receipt_email>")
+    if len(sys.argv) != 2:
+        print("Usage: python3 email_alert.py <receipt_email>")
         sys.exit(1)
-        
-    result = sys.argv[1]
-    receipt_email = sys.argv[2]
+    receipt_email = sys.argv[1]
+    print("Reading scan results from stdin...")
+    result = sys.stdin.read()
+
     
     success = send_mail(receipt_email, result)
     sys.exit(0 if success else 1)
