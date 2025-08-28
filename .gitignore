@@ -31,3 +31,4 @@ yarn-error.log
 /storage/logs/laravel.log
 *.log
 *.log text eol=lf
+*.log
