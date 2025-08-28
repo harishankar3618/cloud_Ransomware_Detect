@@ -241,7 +241,6 @@
     <div class="main-container">
         <div class="container">
             <div class="form-container">
-                <img src="logo.png" alt="Ransomewatch Logo" class="logo">
                 <h1>Ransomewatch</h1>
                 <p style="color: #777; margin-bottom: 1rem;">Check your files for potential malware threats easily.</p>
 
