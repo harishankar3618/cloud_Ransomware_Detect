@@ -329,16 +329,6 @@
                 </div>
             </div>
         @endif
-
-        @if(config('app.debug') && isset($results))
-            <div class="result-container" style="border-color: #ff4444;">
-                <h2 style="color: #ff4444;">Debug Info</h2>
-                <div class="result-item">
-                    <h3>Results Variable:</h3>
-                    <pre>{{ print_r($results, true) }}</pre>
-                </div>
-            </div>
-        @endif
     </div>
 
     <script>
