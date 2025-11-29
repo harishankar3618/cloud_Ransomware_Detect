@@ -6,7 +6,7 @@ import hashlib
 import requests
 
 # API settings for MalwareBazaar
-HEADERS = {'Auth-Key': '5a02f417f210d4e06a1907c40cf1dcf5adaf6f4a55247a03'}
+HEADERS = {'Auth-Key': '56000943ca1ef0682a4db841e9523add9f5014cf0115c669'}
 API_URL = 'https://mb-api.abuse.ch/api/v1/'
 
 # Configure logging
